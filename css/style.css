@@ -1,12 +1,9 @@
-body {
-    text-align: center;
-}
-
 #navbar {
     position: sticky;
     top: 0;
     overflow: hidden;
     background-color: cadetblue;
+    z-index: 2;
 }
 
 #navbar a {
@@ -17,10 +14,15 @@ body {
     padding: 14px;
     text-decoration: none;
     -webkit-text-fill-color: black;
+    z-index: 1;
 }
 
 #selected {
     background-color: rgb(117, 117, 248);
+}
+
+body {
+    text-align: center;
 }
 
 h1 {
@@ -30,32 +32,39 @@ h1 {
     font-weight: bold;
     font-size: 400%;
 
-    -webkit-text-fill-color: darkcyan;
+    -webkit-text-fill-color: rgb(2, 49, 151);
+    z-index: 0;
 }
 
 h2 {
     font-size: 250%;
     
-    -webkit-text-fill-color: darkcyan;
+    -webkit-text-fill-color: rgb(2, 49, 151);
+    z-index: 0;
 }
 
-.regularText {
-    display: block;
-    margin-left: 50px;
-    margin-right: 50px;
-    font-size: 150%;
-    font-weight: 540;
-    text-align: left;
-    text-indent: 50px;
+h3 {
+    font-size: 200%;
+    margin-right: 1.5%;
+    -webkit-text-fill-color: rgb(2, 49, 151);
+    z-index: 0;
+}
+
+a.listText {
+    font-weight: bold;
+    text-decoration: none;
 
     -webkit-text-fill-color:cornflowerblue;
+    z-index: 0;
 }
 
 ol.listText {
-    margin-left: 25%;
+    justify-content: left;
+    align-items: left;
     text-align: left;
     -webkit-text-fill-color:cornflowerblue;
 
+    z-index: 0;
 }
 
 li.listText {
@@ -67,11 +76,132 @@ li.listText {
     text-align: left;
 
     -webkit-text-fill-color:cornflowerblue;
+    z-index: 0;
 }
 
-a.listText {
-    font-weight: bold;
-    text-decoration: none;
+.regularText {
+    display: block;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;
+    font-size: 150%;
+    font-weight: 540;
+    text-align: left;
+    text-indent: 50px;
 
     -webkit-text-fill-color:cornflowerblue;
+    z-index: 0;
+}
+
+.largeText {
+    display: block;
+    margin-left: 1px;
+    margin-right: 1px;
+    font-size: 250%;
+    font-weight: 250%;
+    text-align: left;
+
+    -webkit-text-fill-color:cornflowerblue;
+    z-index: 0;
+}
+
+.horizontalAlignHead {
+    background-color: rgb(117, 117, 248);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1;
+}
+
+.horizontalAlignBody {
+    margin-top: 0;
+    background-color: rgb(66, 66, 185);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 0;
+}
+
+.alignLeft {
+    justify-content: normal;
+    align-items: normal;
+}
+
+.dropdownBtn {
+    width: 200px;
+    background-color: cadetblue;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    display: block;
+
+    z-index: 1;
+}
+
+.dropdownList {
+    width: 200px;
+    position: relative;
+    display: inline;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+
+    z-index: 1;
+}
+
+.dropdownContent {
+    display: block;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 200px;
+    box-shadow: 0px 8px 16px 0px
+rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.dropdownContent button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    width: 200px;
+    border: none;
+    display: none;
+
+    z-index: 1;
+}
+
+.dropdownList:hover .dropdownBtn {
+    background-color: cornflowerblue;
+}
+
+.calcBtn {
+    display: block;
+    /* position: absolute; */
+    border: none;
+    width: auto;
+    box-shadow: 0px 8px 16px 0px
+rgba(0,0,0,0.2);
+
+    z-index: 0;
+
+    font-size: 280%;
+    -webkit-text-fill-color: white;
+    text-align: center;
+    
+    background-color: cadetblue;
+    padding: 14px 30px;
+}
+
+.calcBtn:hover {
+    background-color: cornflowerblue;
+} 
+
+.numberInput {
+    display: block;
+    padding: 6px 6px;
+    size: 10;
 }

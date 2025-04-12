@@ -3,40 +3,40 @@
 function setNavbarColor() {
     switch(window.location.pathname) {
         case "/html/index.html" :
-            changeSelection(".home");
+            setSelection(".home");
             break;
         case "/html/units/UnitOne.html" :
-            changeSelection(".one");
+            setSelection(".one");
             break;
         case "/html/units/UnitTwo.html" :
-            changeSelection(".two");
+            setSelection(".two");
             break;
         case "/html/units/UnitThree.html" :
-            changeSelection(".three");
+            setSelection(".three");
             break;
         case "/html/units/UnitFour.html" :
-            changeSelection(".four");
+            setSelection(".four");
             break;
         case "/html/units/UnitFive.html" :
-            changeSelection(".five");
+            setSelection(".five");
             break;
         case "/html/units/UnitSix.html" :
-            changeSelection(".six");
+            setSelection(".six");
             break;
         case "/html/units/UnitSeven.html" :
-            changeSelection(".seven");
+            setSelection(".seven");
             break;
         case "/html/units/UnitEight.html" :
-            changeSelection(".eight");
+            setSelection(".eight");
             break;
         case "/html/units/UnitNine.html" :
-            changeSelection(".nine");
+            setSelection(".nine");
             break;
         default:
             console.log("color assignment failed");
     }
 }
-function changeSelection(newPose) {
+function setSelection(newPose) {
     try {
         document.querySelectorAll("selected").forEach((element) => {
             element.id.replace("selected","unselected");

@@ -8,6 +8,9 @@
 </head>
 <body>
     <script type="module" src="/utils/app.js"></script>
+    <script type="module" src="/utils/dropdown.js"></script>
+    <script type="module" src="/utils/stoichiometry.js"></script>
+    <script type="module" src="/utils/sigFigs.js"></script>
     <div id="navbar">
         <a class="home" href="/html/index.html">Homepage</a>
         <a class="one" href="/html/units/UnitOne.html">Unit One</a>
@@ -22,8 +25,38 @@
     </div>
     <div id="pageHtml">
         <h1>Unit 1:</h1>
-        <h2>Mole Conversions:</h2>
-        <!-- <input id="enterReport" name="enterReport" spellcheck="false" autocomplete="off"> -->
+        <div class="horizontalAlignHead"><h2>Conversions with Moles:</h2></div>
+        <div class="horizontalAlignBody">
+            <h3 class="largeText">Enter molar mass of compund:</h3>
+            <input class="numberInput" id ="molarMassInput">
+            <h3 class="largeText">g&frasl;mol </h3>
+        </div>
+        <div class="horizontalAlignBody">
+            <h3 class="largeText">Enter units amounts: </h3>
+            <input class="numberInput" id ="conversionInput">
+            <div class="dropdownList">
+                <button class="dropdownBtn" id = "reactConversion">Starting Unit</button>  
+                <div class="dropdownContent">
+                    <button class="reactConversionBtn">Moles(mol)</button>
+                    <button class="reactConversionBtn">Grams(g)</button>
+                    <button class="reactConversionBtn">Molecules</button>
+                    <button class="reactConversionBtn">Liters(L)</button>
+                </div>
+            </div>
+                <h3 class="largeText">to</h3>
+            <div class="dropdownList">
+                <button class="dropdownBtn" id = "prodConversion">Converted Unit</button>  
+                <div class="dropdownContent">
+                    <button class="prodConversionBtn">Moles(mol)</button>
+                    <button class="prodConversionBtn">Grams(g)</button>
+                    <button class="prodConversionBtn">Molecules</button>
+                    <button class="prodConversionBtn">Liters(L)</button>
+                </div> 
+            </div> 
+        </div>
+        <div class="horizontalAlignHead"><button class="calcBtn">Calculate!</button></div>
+        <div class="horizontalAlignBody"><h class="largeText" id ="conversionOutput">Enter conversion data above!</h></div>
     </div>
+    <div class="horizontalAlignHead"><h2>Balancing an equation:</h2></div>
 </body>
 </html>
