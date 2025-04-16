@@ -42,6 +42,35 @@ class Molecules {
     }
 }
 
+class Molarity {
+    // MOLARITY = MOLES/LITERS
+    liters;
+    moles;
+    amount;
+    // TODO: ALWAYS USE -1 FOR UNKNOWN THING
+    constructor (liters, moles, amount) {
+        this.liters = liters;
+        this.moles = moles;
+        this.amount = amount;
+        this.setUnknownUnit();
+    }
+
+    setUnknownUnit () {
+        if (this.liters == -1) {
+            this.liters = this.moles/this.amount;
+            return;
+        }
+        if (this.moles == -1) {
+            this.moles = this.amount*this.liters
+            return;
+        }
+        if (this.amount == -1) {
+            this.amount = this.moles/this.liters
+            return;
+        }
+    }
+}
+
 class Moles {
     molarMass;
     amount;
@@ -84,23 +113,25 @@ function unitOneCalc() {
         let unknownUnit;
         let total;
 
-        let finalString = "In order to find "+ prod + " from "+ react + ", you start with: ";
+        let finalString = "In order to find "+ prod + " from "+ react + ", you start with converting to Moles. ";
 
         if(react != "Starting Unit" 
             && react != "0"
             && prod != "Converted Unit" 
             && prod != "0"
             && molarMass != ""
-            && amount != "") {
+            && amount != ""
+            && !String(molarMass).includes("NaN")
+            && !String(amount).includes("NaN")
+        ) {
             
             molarMass = parseFloat(molarMass);
-            amount = parseFloat(amount);
-            console.log(molarMass,amount)    
+            amount = parseFloat(amount); 
 
             switch(react) {
                 case "Moles(mol)" :
                     sigFigs.applySigFigs(amount);
-                    finalString = finalString.concat("since we don't  sigFigs.output + ");
+                    finalString = finalString.concat("Because we don't have to convert to Moles (as we start off with " + sigFigs.output+"Moles(mol)), we directly ");
                     mol = new Moles(molarMass,amount)
                     break;
                 case "Grams(g)" :
@@ -134,21 +165,28 @@ function unitOneCalc() {
                     break;
                 case "Grams(g)" :
                     sigFigs.applySigFigs(molarMass);
-                    finalString = finalString.concat("convert the Moles into Grams via multiplying by the compound's Molar Mass ("+sigFigs.output+"g/mol) to get the compound's Grams!\n")
+                    finalString = finalString.concat("convert the Moles into Grams via multiplying the compound's Moles by its Molar Mass ("+sigFigs.output+"g/mol) to get the compound's Grams!\n")
                     total = new Grams();
                     break;
                 case "Liters(L)" :
-                    finalString = finalString.concat("convert the Moles into Liters via multiplying by Liter constant (22.4L) to get the compound's Liters!\n");
+                    finalString = finalString.concat("convert the Moles into Liters via multiplying the compound's Moles by the Liter constant (22.4L) to get the compound's Liters!\n");
                     total = new Litters();
                     break;
                 case "Molecules" :
-                    finalString = finalString.concat("convert the Moles into Liters via multiplying by Avogadro's constant (6.022 x 10^23 Molecules/mol) to get the element's Molecules!\n");
+                    finalString = finalString.concat("convert the Moles into Liters via multiplying the compound's Moles by Avogadro's constant (6.022 x 10^23 Molecules/mol) to get the element's Molecules!\n");
                     total = new Molecules();
                     break;   
             }
             total.calc(mol);
             sigFigs.applySigFigs(total.amount);
             document.querySelector("#conversionOutput").textContent = finalString.concat("\nFinal Anwser: ", sigFigs.output," ", prod);
+        }
+
+        if (
+            String(molarMass).includes("NaN")
+            || String(amount).includes("NaN")
+        )   {
+            document.querySelector("#conversionOutput").textContent = "Enter conversion data above!";
         }
     });
 }
