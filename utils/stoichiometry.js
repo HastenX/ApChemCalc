@@ -94,7 +94,7 @@ class Moles {
 }
 
 function unitOneCalc() {
-    document.querySelector(".calcBtn").addEventListener("click", ()=> {
+    document.getElementById("calcBtn").addEventListener("click", ()=> {
         let react = document.getElementById("reactConversion").textContent;
         let prod = document.getElementById("prodConversion").textContent;
 

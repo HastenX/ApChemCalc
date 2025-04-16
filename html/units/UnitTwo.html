@@ -8,6 +8,7 @@
 </head>
 <body>
     <script type="module" src="/ApChemCalc/utils/app.js"></script>
+    <script type="module" src="/ApChemCalc/utils/chargeCalc.js"></script>
     <div id="navbar">
         <a class="home" href="/ApChemCalc/index.html">Homepage</a>
         <a class="one" href="/ApChemCalc/html/units/UnitOne.html">Unit One</a>
@@ -19,6 +20,63 @@
         <a class="seven" href="/ApChemCalc/html/units/UnitSeven.html">Unit Seven</a>
         <a class="eight" href="/ApChemCalc/html/units/UnitEight.html">Unit Eight</a>
         <a class="nine" href="/ApChemCalc/html/units/UnitNine.html">Unit Nine</a>
+    </div>
+    <div id="pageHtml">
+        <h1>Unit 2:</h1>
+        <div class="horizontalAlignHead"><h2>Collumb's Law: </h2></div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Valence Shell levels and Charges of the ions to compare their respective forces of attraction:</h>
+        </div>
+        <div class="horizontalAlignHead">
+            <h2>Comparison 1: X+Y</h2>
+        </div>
+
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment X's Valence Shell Level: </h> 
+            <input class="largeNumberInput" id ="xDistanceOne" type="number">
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment X's Charge: </h>
+            <input class="largeNumberInput" id ="xChargeOne" type="number">
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment Y's Valence Shell Level: </h> 
+            <input class="largeNumberInput" id ="yDistanceOne" type="number">
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment Y's Charge: </h>
+            <input class="largeNumberInput" id ="yChargeOne" type="number">
+        </div>
+
+        <div class="horizontalAlignHead">
+            <h2>Comparison 2: X+Y</h2>
+        </div>
+
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment X's Valence Shell Level: </h> 
+            <input class="largeNumberInput" id ="xDistanceTwo" type="number">
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment X's Charge: </h>
+            <input class="largeNumberInput" id ="xChargeTwo" type="number">
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment Y's Valence Shell Level: </h> 
+            <input class="largeNumberInput" id ="yDistanceTwo" type="number">
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Enter Elment Y's Charge: </h>
+            <input class="largeNumberInput" id ="yChargeTwo" type="number">
+        </div>
+
+        <div class="horizontalAlignHead"><button class="btn" id="comparingChargeBtn">Get Comparison!</button></div>
+
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="attractionOutput">Enter the data above to compare attractions using Collumb's Law (Q=k(q1q2)/r^2)!</h>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="attractionAnwser"></h>
+        </div>
     </div>
 </body>
 </html>
