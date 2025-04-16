@@ -1,4 +1,4 @@
-import {SigFigs} from "/utils/sigFigs.js";
+import {SigFigs} from "/ApChemCalc/utils/sigFigs.js";
 
 const avogradoConstant = 6.022 * 10**23;
 const litterConstant = 22.4;
@@ -191,5 +191,5 @@ function unitOneCalc() {
     });
 }
 
-window.location.pathname == "/html/units/UnitOne.html" ? unitOneCalc() 
+window.location.pathname == "/ApChemCalc/html/units/UnitOne.html" ? unitOneCalc() 
     : false;

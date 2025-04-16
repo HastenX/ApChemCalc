@@ -2,34 +2,34 @@
 
 function setNavbarColor() {
     switch(window.location.pathname) {
-        case "/html/index.html" :
+        case "/ApChemCalc/index.html" :
             setSelection(".home");
             break;
-        case "/html/units/UnitOne.html" :
+        case "/ApChemCalc/html/units/UnitOne.html" :
             setSelection(".one");
             break;
-        case "/html/units/UnitTwo.html" :
+        case "/ApChemCalc/html/units/UnitTwo.html" :
             setSelection(".two");
             break;
-        case "/html/units/UnitThree.html" :
+        case "/ApChemCalc/html/units/UnitThree.html" :
             setSelection(".three");
             break;
-        case "/html/units/UnitFour.html" :
+        case "/ApChemCalc/html/units/UnitFour.html" :
             setSelection(".four");
             break;
-        case "/html/units/UnitFive.html" :
+        case "/ApChemCalc/html/units/UnitFive.html" :
             setSelection(".five");
             break;
-        case "/html/units/UnitSix.html" :
+        case "/ApChemCalc/html/units/UnitSix.html" :
             setSelection(".six");
             break;
-        case "/html/units/UnitSeven.html" :
+        case "/ApChemCalc/html/units/UnitSeven.html" :
             setSelection(".seven");
             break;
-        case "/html/units/UnitEight.html" :
+        case "/ApChemCalc/html/units/UnitEight.html" :
             setSelection(".eight");
             break;
-        case "/html/units/UnitNine.html" :
+        case "/ApChemCalc/html/units/UnitNine.html" :
             setSelection(".nine");
             break;
         default:
