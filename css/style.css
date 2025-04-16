@@ -97,7 +97,7 @@ li.listText {
     display: block;
     margin-left: 1px;
     margin-right: 1px;
-    font-size: 250%;
+    font-size: 300%;
     font-weight: 250%;
     text-align: left;
 
@@ -124,6 +124,7 @@ li.listText {
     align-items: center;
 
     z-index: 0;
+    min-height: 200px;
 }
 
 .alignLeft {
@@ -174,10 +175,6 @@ rgba(0,0,0,0.2);
     z-index: 1;
 }
 
-.dropdownList:hover .dropdownBtn {
-    background-color: cornflowerblue;
-}
-
 .calcBtn {
     display: block;
     /* position: absolute; */
@@ -196,12 +193,45 @@ rgba(0,0,0,0.2);
     padding: 14px 30px;
 }
 
+.ionicEquationBtn {
+    display: block;
+    /* position: absolute; */
+    border: none;
+    width: auto;
+    box-shadow: 0px 8px 16px 0px
+rgba(0,0,0,0.2);
+
+    z-index: 0;
+
+    font-size: 280%;
+    -webkit-text-fill-color: white;
+    text-align: center;
+    
+    background-color: cadetblue;
+    padding: 14px 30px;
+}
+
+.largeNumberInput {
+    display: block;
+    padding: 6px 6px;
+    /* size: 10; */
+}
+
+.subNumberInput {
+    -webkit-text-fill-color:black;
+    width: 100px;
+
+    /* size: 2 */
+}
+
+.dropdownList:hover .dropdownBtn {
+    background-color: cornflowerblue;
+}
+
 .calcBtn:hover {
     background-color: cornflowerblue;
 } 
 
-.numberInput {
-    display: block;
-    padding: 6px 6px;
-    size: 10;
-}
+.ionicEquationBtn:hover {
+    background-color: cornflowerblue;
+} 
