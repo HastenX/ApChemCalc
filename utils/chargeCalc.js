@@ -25,8 +25,9 @@ function unitOneCalc () {
             document.getElementById("coefficentOne").textContent = coefficentOne;
             document.getElementById("coefficentTwo").textContent = coefficentTwo;
 
-            document.getElementById("netIonicOutput").textContent = "You would need " + coefficentOne + " Mole(s) of X and " + coefficentTwo + " Mole(s) of Y" 
-                + "to make one Mole of X" + coefficentOne + "Y" + coefficentTwo;
+            document.getElementById("netIonicOutput").textContent = "You would need " + coefficentOne + " Mole(s) of X^"+ String(Math.round(inputOne)>= 1 ? "+" + Math.round(inputOne) : Math.round(inputOne))
+                +" and " + coefficentTwo + " Mole(s) of Y^"+ String(Math.round(inputTwo)>= 1 ? "+" + Math.round(inputTwo) : Math.round(inputTwo))
+                + " to make one Mole of X" + coefficentOne + "Y" + coefficentTwo;
 
         } else {
             document.getElementById("netIonicOutput").textContent = "Please enter an anion (negative ion) charge and cation (positive ion) charge above!";
