@@ -217,3 +217,11 @@ rgba(0,0,0,0.2);
 .dropdownList:hover .dropdownBtn {
     background-color: cornflowerblue;
 }
+
+#invisible {
+    display: none;
+}
+
+#visible {
+    display: flex;
+}

@@ -47,7 +47,7 @@ class Molarity {
     liters;
     moles;
     amount;
-    // TODO: ALWAYS USE -1 FOR UNKNOWN THING
+    // TODO: ALWAYS USE UNDEFINED FOR UNKNOWN THING
     constructor (liters, moles, amount) {
         this.liters = liters;
         this.moles = moles;
@@ -56,18 +56,22 @@ class Molarity {
     }
 
     setUnknownUnit () {
-        if (this.liters == -1) {
+        if (this.liters == undefined) {
             this.liters = this.moles/this.amount;
             return;
         }
-        if (this.moles == -1) {
+        if (this.moles == undefined) {
             this.moles = this.amount*this.liters
             return;
         }
-        if (this.amount == -1) {
+        if (this.amount == undefined) {
             this.amount = this.moles/this.liters
             return;
         }
+    }
+
+    calc(object, liters) {
+        this.amount = object.amount/liters;
     }
 }
 
@@ -90,7 +94,70 @@ class Moles {
         if(object instanceof Molecules) {
             this.amount = object.amount/avogradoConstant;
         }
+        if(object instanceof Molarity) {
+            this.amount = object.amount * object.liters;
+        }
     }
+}
+
+function resetInputVisibilty() {
+    document.querySelectorAll("#visible").forEach((div) => {
+        div.id = "invisible";
+    });
+}
+
+function isVisibleEntered() {
+    let finalBoolean;
+    document.querySelectorAll("#visible").forEach((div)=> {
+        if(String(div.querySelector(".largeNumberInput").value) == "") {
+            finalBoolean = false;
+        }
+    });
+    if(finalBoolean == undefined) {
+        return true;
+    }
+    return false
+}
+
+function setInputVisibilty(btnType) {
+    document.querySelectorAll(btnType).forEach((btn) => 
+        btn.addEventListener("click", ()=> {
+            switch(btn.textContent) {
+                case "Moles(mol)": 
+                    document.querySelectorAll("#invisible").forEach((div)=> {
+                        if(div.querySelector("#moleInput")) {
+                            div.id = "visible";
+                        }
+                    });
+                    break;
+                case "Molarity(M)": 
+                    document.querySelectorAll("#invisible").forEach((div)=> {
+                        let skipMolarity;
+                        try {
+                            skipMolarity = document.querySelector("#visible").querySelector("#moleInput")
+                            !skipMolarity ? skipMolarity = document.querySelector("#visible").querySelector("#gramInput") : false;
+                        } catch (e) {}
+                        if(div.querySelector("#molarityInput") && !skipMolarity) {
+                            div.id = "visible";
+                        }
+                        if(div.querySelector("#literInput")) {
+                            div.id = "visible";
+                        }
+                    });
+                    break;
+                case "Grams(g)":
+                    document.querySelectorAll("#invisible").forEach((div)=> {
+                        if(div.querySelector("#gramInput")) {
+                            div.id = "visible";
+                        }
+                        if(div.querySelector("#molarMassInput")) {
+                            div.id = "visible";
+                        }
+                    });
+                    break;                                    
+            }
+        }
+    ));
 }
 
 function unitOneCalc() {
@@ -191,5 +258,150 @@ function unitOneCalc() {
     });
 }
 
+function unitFourCalc() {
+    let visibleList = [];
+    let moleTransfer = new Moles(0,0);
+    let unknownUnit;
+
+    let coefficentOne;
+    let coefficentTwo;
+    let coefficentThree;
+    let coefficentFour;
+
+    let moles;
+    let liters;
+    let molarity;
+    let grams;
+    let molarMass;
+
+    let sigFigs;
+
+    let excess;
+    let limit;
+
+    setInputVisibilty(".reactUnitBtn");
+    setInputVisibilty(".prodUnitBtn");
+
+    let react;
+    let prod;
+
+    let finalString;
+
+    document.getElementById("calcConversion").addEventListener("click", ()=> {
+        react =  document.getElementById("reactUnit").textContent;
+        prod =  document.getElementById("prodUnit").textContent;
+
+        finalString = "In order to find "+ prod + " from "+ react + ", from the reactents a + b to the products c + d, you start with converting the reactents to Moles. ";
+        coefficentOne = Math.round(Number(document.getElementById("coefficentOne").value));
+        coefficentTwo = Math.round(Number(document.getElementById("coefficentTwo").value));
+        coefficentThree = Math.round(Number(document.getElementById("coefficentThree").value));
+        coefficentFour = Math.round(Number(document.getElementById("coefficentFour").value));
+
+        moles = document.getElementById("moleInput").value;
+        molarity = document.getElementById("molarityInput").value;
+        liters = document.getElementById("literInput").value;
+        molarMass = document.getElementById("molarMassInput").value;
+        grams = document.getElementById("gramInput").value;
+
+        excess = coefficentOne > coefficentTwo ? "B" : "A";
+        limit = coefficentOne > coefficentTwo ? "A" : "B";
+        
+        if(isVisibleEntered()
+            && coefficentOne >0
+            && coefficentTwo >0
+            && coefficentThree >0
+            && coefficentFour >0
+            && document.getElementById("reactUnit").textContent != "Starting Unit"
+            && document.getElementById("prodUnit").textContent != "Product Unit"
+        ) {
+            document.querySelectorAll("#visible").forEach((div) => {
+                visibleList.push(div.querySelector("input").value);
+            });
+            sigFigs = new SigFigs(...visibleList);
+            resetInputVisibilty();
+
+            switch(react) {
+                case "Moles(mol)":
+                    sigFigs.applySigFigs(moles);
+                    finalString = finalString.concat("Due to already being in Moles ("+sigFigs.output+"mol), we simpy just multiply by the mole ratio.");
+                    moleTransfer = new Moles(molarMass,moles);
+                    break;
+                case "Grams(g)":
+                    unknownUnit = new Grams(molarMass,grams);
+                    moleTransfer.calc(unknownUnit);
+                    sigFigs.applySigFigs(moleTransfer.amount);
+                    finalString = finalString.concat("To calculate from grams to moles, we simply just divide the grams by the molar mass ("+grams+"g/"+molarMass+"(g/mol)), giving us "+sigFigs.output+"mol. We simply then multiply by the mole ratio.");
+                    break;
+                case "Molarity(M)":
+                    unknownUnit = new Molarity(liters,moles,molarity);
+                    moleTransfer.calc(unknownUnit);
+                    sigFigs.applySigFigs(moleTransfer.amount);
+                    finalString = finalString.concat("To calculate from Molarity to moles, we simply just multiple the moles by the liters ("+unknownUnit.moles+"mol*"+unknownUnit.liters+"l), giving us"+sigFigs.output+"mol. We simply then multiply by the mole ratio.");
+                    break;
+            }
+            if(coefficentOne == coefficentTwo) {
+                finalString = finalString.concat(" Since both A and B have equal coefficents (" + String(coefficentOne) + "=" + String(coefficentTwo) + "), there will be no limiting or excess reactents (as they will both be completely used).");
+            }
+            if(coefficentOne > coefficentTwo) {
+                finalString = finalString.concat(" Since "+ limit+" has a greater coefficent (" + String(coefficentOne) + ">" + String(coefficentTwo) + "), "+limit +" will be the limiting reactactent and "+excess+" will be in excess.");
+            }
+            if(coefficentOne < coefficentTwo) {
+                finalString = finalString.concat(" Since "+ limit+" has a greater coefficent (" + String(coefficentTwo)+ ">" + String(coefficentOne) + "), "+limit +" will be the limiting reactactent and "+excess+" will be in excess.");
+            }
+            finalString = finalString.concat("This means that we will divide by the coeffiecent of "+limit+ " (" + String(limit == "A" ? coefficentOne : coefficentTwo)+"). We will then multiple by " +String(coefficentThree) + " and " +String(coefficentFour) + " to get C and B respectivly. ");
+            if(coefficentOne!= coefficentTwo) {
+                sigFigs.applySigFigs((coefficentOne > coefficentTwo ? String(Math.abs((moleTransfer.amount * (coefficentTwo/coefficentOne))-moleTransfer.amount)) : String(Math.abs((moleTransfer.amount * (coefficentOne/coefficentTwo))-moleTransfer.amount))))
+                finalString = finalString.concat("Please not that there will be " + sigFigs.output  + "mol leftover of "+excess+" (calulating via subtracting the moles that didn't react v. the moles that did). ")
+            }
+            sigFigs.applySigFigs(moleTransfer.amount)
+            finalString = finalString.concat("Multiplying the calculated moles ("+sigFigs.output+"mol) by the coefficents of C and D gets us ");
+            sigFigs.applySigFigs((moleTransfer.amount* coefficentThree));
+            finalString = finalString.concat(String(sigFigs.output) + "mol and "); 
+            sigFigs.applySigFigs((moleTransfer.amount* coefficentFour));
+            finalString = finalString.concat((String(sigFigs.output)+"mol."));
+
+            switch(prod) {
+                case "Moles(mol)":
+                    unknownUnit = moleTransfer;
+                    break;
+                case "Grams(g)":
+                    sigFigs.applySigFigs(moleTransfer.amount*coefficentThree);
+                    finalString = finalString.concat("To calculate from moles to grams, we simply just multiply the moles by the molar mass ("+String(sigFigs.output)+"mol or ")
+                    
+                    sigFigs.applySigFigs(moleTransfer.amount*coefficentFour);
+                    finalString = finalString.concat(String(sigFigs.output) +"mol/"+String(molarMass)+"(g/mol)), giving us ");
+                    
+                    sigFigs.applySigFigs((moleTransfer.amount*coefficentThree)/molarMass);
+                    finalString = finalString.concat(String(sigFigs.output)+"g for C or ");
+                    
+                    sigFigs.applySigFigs((moleTransfer.amount*coefficentFour)/molarMass);
+                    finalString = finalString.concat(String(sigFigs.output)+"g for D.");
+                    break;
+                case "Molarity(M)":
+                    sigFigs.applySigFigs(moleTransfer.amount*coefficentThree);
+                    finalString = finalString.concat("To calculate from moles to molarity, we simply just divide the moles by the volume ("+String(sigFigs.output)+"mol or ")
+                    
+                    sigFigs.applySigFigs(moleTransfer.amount*coefficentFour)
+                    finalString = finalString.concat(String(sigFigs.output) +"mol/"+liters+"L), giving us ");
+
+                    sigFigs.applySigFigs((moleTransfer.amount*coefficentThree)/liters);
+                    finalString = finalString.concat(String(sigFigs.output)+"M for C or ");
+                    
+                    sigFigs.applySigFigs((moleTransfer.amount*coefficentFour)/liters);
+                    finalString = finalString.concat(String(sigFigs.output)+"M for D.");
+                    break;
+            }
+
+            document.getElementById("conversion").textContent = finalString;
+            document.getElementById("reactUnit").textContent = "Starting Unit"
+            document.getElementById("prodUnit").textContent = "Product Unit"
+            visibleList = [];
+        }
+    });
+}
+
 window.location.pathname == "/ApChemCalc/html/units/UnitOne.html" ? unitOneCalc() 
+    : false;
+
+window.location.pathname == "/ApChemCalc/html/units/UnitFour.html" ? unitFourCalc() 
     : false;

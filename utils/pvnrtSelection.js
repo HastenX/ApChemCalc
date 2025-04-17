@@ -98,7 +98,6 @@ function unitThreeSelect() {
     );
 
     document.getElementById("calcPVnRT").addEventListener("click",(() => {
-        // console.log("failed")
         if(undisplayed) {
             if(undisplayed == "Moles(mol, n):") {
                 checkIfEntered(

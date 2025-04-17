@@ -8,6 +8,9 @@
 </head>
 <body>
     <script type="module" src="/ApChemCalc/utils/app.js"></script>
+    <script type="module" src="/ApChemCalc/utils/dropdown.js"></script>
+    <script type="module" src="/ApChemCalc/utils/stoichiometry.js"></script>
+
     <div id="navbar">
         <a class="home" href="/ApChemCalc/index.html">Homepage</a>
         <a class="one" href="/ApChemCalc/html/units/UnitOne.html">Unit One</a>
@@ -22,6 +25,64 @@
     </div>
     <div id="pageHtml">
         <h1>Unit 4:</h1>
+        <div class="horizontalAlignHead"><h2>Stoichiometry w/ Net Ionic Equations</h2></div>
+        <div class="horizontalAlignBody"><h class="largeText">Please enter the Mole Coeffiecents required for the Net Ionic Reaction (please use whole numbers):</h></div>
+        <div class="horizontalAlignBody">
+            <input class="subNumberInput" id= "coefficentOne" type="number">
+            <h class="largeText">A + </h>
+            <input class="subNumberInput" id= "coefficentTwo" type="number">
+            <h class="largeText">B → </h>
+            <input class="subNumberInput" id= "coefficentThree" type="number">
+            <h class="largeText">C + </h>
+            <input class="subNumberInput" id= "coefficentFour" type="number">
+            <h class="largeText">D</h>
+        </div>
+        <div class="horizontalAlignHead"><h2>Please select which unit you would like to use for reactents and products (this is assuming equil-molar, molarity or grams between reactents):</h2></div>
+        <div class="horizontalAlignBody">
+            <div class="dropdownList" id="largeDropdown">
+                <button class="dropdownBtn" id = "reactUnit">Starting Unit</button>  
+                <div class="dropdownContent">
+                    <button class="reactUnitBtn">Moles(mol)</button>
+                    <button class="reactUnitBtn">Grams(g)</button>
+                    <button class="reactUnitBtn">Molarity(M)</button>
+                </div>
+            </div>
+            <div class="dropdownList" id="largeDropdown">
+                <button class="dropdownBtn" id = "prodUnit">Product Unit</button>  
+                <div class="dropdownContent">
+                    <button class="prodUnitBtn">Moles(mol)</button>
+                    <button class="prodUnitBtn">Grams(g)</button>
+                    <button class="prodUnitBtn">Molarity(M)</button>
+                </div>
+            </div>
+        </div>
+        <div class="horizontalAlignBody" id="invisible">
+            <h class="largeText">Enter Reactent Moles: </h>
+            <input class="largeNumberInput" id ="moleInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="invisible">
+            <h class="largeText">Enter Reactent Grams: </h>
+            <input class="largeNumberInput" id ="gramInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="invisible">
+            <h class="largeText">Enter Molar Mass: </h>
+            <input class="largeNumberInput" id ="molarMassInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="invisible">
+            <h class="largeText">Enter Reactent Molarity: </h>
+            <input class="largeNumberInput" id ="molarityInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="invisible">
+            <h class="largeText">Enter Total Liters: </h>
+            <input class="largeNumberInput" id ="literInput" type="number">
+        </div>
+        <div class="horizontalAlignHead"><button class="btn" id="calcConversion">Calculate!</button></div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="conversion">Please select and fill in the required data before pressing calculate!</h>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="conversionAnwser"></h>
+        </div>
     </div>
 </body>
 </html>
