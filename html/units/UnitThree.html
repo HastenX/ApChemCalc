@@ -8,6 +8,8 @@
 </head>
 <body>
     <script type="module" src="/ApChemCalc/utils/app.js"></script>
+    <script type="module" src="/ApChemCalc/utils/dropdown.js"></script>
+    <script type="module" src="/ApChemCalc/utils/pvnrtSelection.js"></script>
     <div id="navbar">
         <a class="home" href="/ApChemCalc/index.html">Homepage</a>
         <a class="one" href="/ApChemCalc/html/units/UnitOne.html">Unit One</a>
@@ -22,6 +24,46 @@
     </div>
     <div id="pageHtml">
         <h1>Unit 3:</h1>
+        <div class="horizontalAlignHead"><h2>Ideal Gas equation (PV = nRT)</h2></div>
+        <!-- <div class="horizontalAlignBody">
+            <h class="largeText">Please select which element you would like to solve for and fill in the missing numbers:</h>
+        </div> -->
+        <div class="horizontalAlignBody">
+            <h class="largeText">Please select which element you would like to solve for:</h>
+            <div class="dropdownList" id="largeDropdown">
+                <button class="dropdownBtn" id = "solveFor">Starting Unit</button>  
+                <div class="dropdownContent">
+                    <button class="solveForBtn">Moles(mol, n)</button>
+                    <button class="solveForBtn">Pressure(atm, P)</button>
+                    <button class="solveForBtn">Volume(L, V)</button>
+                    <button class="solveForBtn">Tempature(°K, T)</button>
+                </div>
+            </div>
+        </div>
+        <div class="horizontalAlignHead" id="unitTitle"><h2>Please enter the known units:</h2></div>
+        <div class="horizontalAlignBody" id="toggle">
+            <h2 class="largeText" id="mole">Moles(mol, n):</h2>
+            <input class="largeNumberInput" id ="moleInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="toggle">
+            <h2 class="largeText" id="pres">Pressure(atm, P):</h2>
+            <input class="largeNumberInput" id ="presInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="toggle">
+            <h2 class="largeText" id="temp">Tempature(°K, T):</h2>
+            <input class="largeNumberInput" id ="tempInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="toggle">
+            <h2 class="largeText" id="vol">Volume(L, V):</h2>
+            <input class="largeNumberInput" id ="volInput" type="number">
+        </div>
+        <div class="horizontalAlignHead"><button class="btn" id="calcPVnRT">Calculate!</button></div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="pvnrtOutput">Please select and fill in the required data before pressing calculate!</h>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="pvnrtAnwser"></h>
+        </div>
     </div>
 </body>
 </html>

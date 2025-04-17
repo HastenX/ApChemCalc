@@ -81,7 +81,7 @@ class dropdown {
     }
 }
 
-function unitOneDropdown() {
+function enableDropdowns() {
     document.querySelectorAll(".dropdownList").forEach((list) => {
         let btn = list.querySelector(".dropdownBtn");
         btn.addEventListener("click", (() => {
@@ -94,10 +94,23 @@ function unitOneDropdown() {
             closeIfClickOff(list,list.matches(":hover"))
         }));
     });
+}
+
+function unitOneDropdown() {
+    enableDropdowns();
 
     new dropdown("reactConversion", "prodConversion");
     new dropdown("prodConversion", "reactConversion");
 }
 
+function unitThreeDropdown() {
+    enableDropdowns();
+
+    new dropdown("solveFor");
+}
+
 window.location.pathname == "/ApChemCalc/html/units/UnitOne.html" ? unitOneDropdown() 
+    : false;
+
+window.location.pathname == "/ApChemCalc/html/units/UnitThree.html" ? unitThreeDropdown() 
     : false;
