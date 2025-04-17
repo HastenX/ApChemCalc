@@ -116,6 +116,12 @@ function unitFourDropdown() {
     new dropdown("prodUnit");
 }
 
+function unitFiveDropdown() {
+    enableDropdowns();
+
+    new dropdown("solveFor");
+}
+
 window.location.pathname == "/ApChemCalc/html/units/UnitOne.html" ? unitOneDropdown() 
     : false;
 
@@ -123,4 +129,7 @@ window.location.pathname == "/ApChemCalc/html/units/UnitThree.html" ? unitThreeD
     : false;
 
 window.location.pathname == "/ApChemCalc/html/units/UnitFour.html" ? unitFourDropdown() 
+    : false;
+
+window.location.pathname == "/ApChemCalc/html/units/UnitFive.html" ? unitFiveDropdown() 
     : false;

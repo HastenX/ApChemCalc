@@ -6,7 +6,6 @@ export class SigFigs {
     constructor(...userInputs) {
         this.sigFigs = 999999999;
         userInputs.forEach((num) => {
-            console.log(num);
             let changedNum;
             let exponent = this.getCounterExponent(num);
 
