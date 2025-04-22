@@ -122,14 +122,39 @@ function unitFiveDropdown() {
     new dropdown("solveFor");
 }
 
-window.location.pathname == "/ApChemCalc/html/units/UnitOne.html" ? unitOneDropdown() 
+function unitSixDropdown() {
+    enableDropdowns();
+
+    new dropdown("solveFor");
+}
+
+function pairedDropdown(contentOneName, contentTwoName) {
+    enableDropdowns();
+
+    new dropdown(contentOneName, contentTwoName)
+    new dropdown(contentTwoName, contentOneName)
+}
+
+function singleDropdown(contentName) {
+    enableDropdowns();
+
+    new dropdown(contentName);
+}
+
+window.location.pathname == "/ApChemCalc/html/units/UnitOne.html" ? pairedDropdown("reactConversion", "prodConversion",true)
     : false;
 
-window.location.pathname == "/ApChemCalc/html/units/UnitThree.html" ? unitThreeDropdown() 
+window.location.pathname == "/ApChemCalc/html/units/UnitThree.html" ? singleDropdown("solveFor")
     : false;
 
-window.location.pathname == "/ApChemCalc/html/units/UnitFour.html" ? unitFourDropdown() 
+window.location.pathname == "/ApChemCalc/html/units/UnitFour.html" ? () => {
+    console.log("cool")
+    singleDropdown("reactUnit");
+    singleDropdown("prodUnit");
+}    : console.log("boo");
+
+window.location.pathname == "/ApChemCalc/html/units/UnitFive.html" ? singleDropdown("solveFor")
     : false;
 
-window.location.pathname == "/ApChemCalc/html/units/UnitFive.html" ? unitFiveDropdown() 
+window.location.pathname == "/ApChemCalc/html/units/UnitSix.html" ? singleDropdown("solveFor")
     : false;

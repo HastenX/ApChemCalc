@@ -170,12 +170,6 @@ function unitOneCalc() {
 
         let sigFigs = new SigFigs(molarMass,amount);
 
-        sigFigs.applySigFigs(molarMass);
-        molarMass = String(sigFigs.output);
-
-        sigFigs.applySigFigs(amount);
-        amount = String(sigFigs.output);
-
         let mol = new Moles(0,0);
         let unknownUnit;
         let total;

@@ -1,4 +1,5 @@
 export class SigFigs {
+    safetyExponent;
     sigFigs;
     userInputs;
     output;
@@ -44,9 +45,11 @@ export class SigFigs {
     }
 
     getCounterExponent(clampNum) {
-        let rawExponent = Math.log10(clampNum)
+        let rawExponent = Math.log10(clampNum);
+        console.log(rawExponent+":" +clampNum)
         let exponent;
         if (rawExponent == 0) {
+            console.log("failed: "+clampNum)
             exponent = 0;
         }
         else {
@@ -68,6 +71,7 @@ export class SigFigs {
         while (Number(String(this.output).length)-1 < this.sigFigs) {
             this.output = String(this.output).concat("0");
         }
-        this.output = String(this.output).concat("x10^" + -exponent)
+
+        this.output = String(this.output).concat("x10^" + String(-exponent));
     }
 }
