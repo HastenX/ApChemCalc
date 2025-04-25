@@ -1,5 +1,4 @@
 export class SigFigs {
-    safetyExponent;
     sigFigs;
     userInputs;
     output;
@@ -11,28 +10,31 @@ export class SigFigs {
             let exponent = this.getCounterExponent(num);
 
             // COUNT PRE-DECIMAL ZEROS
-            if (Number(String(num).at(String(num).length)) == ".") {
-                changedNum = String(num).concat("1");
-                this.challengeSigFig(Number(String(Number(changedNum) * 10**exponent).replace(".","").length)-1);
-                return;
-            }
+            // if (Number(String(num).at(String(num).length)) == ".") {
+            //     changedNum = String(num).concat("1");
+            //     this.challengeSigFig(Number(String(Number(changedNum) * 10**exponent).replace(".","").length)-1);
+            //     return;
+            // }
             // COUNT LAST ZERO
             if (String(num).includes(".") && Number(String(num).at(String(num).length-1)) == 0) {
                 changedNum = String(num).concat("1");
+                console.log(num)
                 this.challengeSigFig(Number(String(Number(changedNum) * 10**exponent).replace(".","").length)-1);
                 return;
             }
             // COUNT WITH DECIMAL
-            if (String(num).includes(".")) {
-                this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
-                return;
-            }
+            // if (String(num).includes(".")) {
+            //     this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
+            //     return;
+            // }
 
-            // COUNT WITHOUT DECIMAL
-            if (!String(num).includes(".")) {
-                this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
-                return;
-            }
+            // // // COUNT WITHOUT DECIMAL
+            // if (!String(num).includes(".")) {
+            //     this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
+            //     return;
+            // }
+            this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
+            console.log(String(Math.floor(Number(num) * 10**(exponent+Number(String(Number(num) * 10**exponent).replace(".","").length-1)))))
         });
     }
 
@@ -46,10 +48,8 @@ export class SigFigs {
 
     getCounterExponent(clampNum) {
         let rawExponent = Math.log10(clampNum);
-        console.log(rawExponent+":" +clampNum)
         let exponent;
         if (rawExponent == 0) {
-            console.log("failed: "+clampNum)
             exponent = 0;
         }
         else {

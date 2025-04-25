@@ -118,7 +118,7 @@ function unitTwoCalc() {
             }
             if(attractionTwo.distanceTotal > attractionOne.distanceTotal) {
                 document.getElementById("attractionOutput").textContent = "Because both Comparisons have an equal absolute charge (" +attractionOne.chargeTotal+"), we have to rely on the distance between the two ions."
-                    + "As the Distance between elements increases (i.e.: Valence Shell Levels), the Force of Attraction decreases. Because the total Distance of Comparison One is larger ("+attractionTwo.distanceTotal+">"+attractionOne.distanceTotal+")," 
+                    + "As the Distance between elements increases (i.e.: Valence Shell Levels), the Force of Attraction decreases. Because the total Distance of Comparison Two is larger ("+attractionTwo.distanceTotal+">"+attractionOne.distanceTotal+")," 
                     + "Comparison One has a greater force of Attraction."    
                 finalString = "Final Anwser: Comparison One has a greater Force of Attraction."         
             }

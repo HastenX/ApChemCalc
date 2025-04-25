@@ -185,9 +185,6 @@ function unitOneCalc() {
             && !String(molarMass).includes("NaN")
             && !String(amount).includes("NaN")
         ) {
-            
-            molarMass = parseFloat(molarMass);
-            amount = parseFloat(amount); 
 
             switch(react) {
                 case "Moles(mol)" :

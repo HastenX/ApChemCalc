@@ -147,11 +147,11 @@ window.location.pathname == "/ApChemCalc/html/units/UnitOne.html" ? pairedDropdo
 window.location.pathname == "/ApChemCalc/html/units/UnitThree.html" ? singleDropdown("solveFor")
     : false;
 
-window.location.pathname == "/ApChemCalc/html/units/UnitFour.html" ? () => {
+window.location.pathname == "/ApChemCalc/html/units/UnitFour.html" ? (() => {
     console.log("cool")
     singleDropdown("reactUnit");
     singleDropdown("prodUnit");
-}    : console.log("boo");
+})() : false
 
 window.location.pathname == "/ApChemCalc/html/units/UnitFive.html" ? singleDropdown("solveFor")
     : false;
