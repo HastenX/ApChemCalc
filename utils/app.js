@@ -36,6 +36,7 @@ function setNavbarColor() {
             console.log("color assignment failed");
     }
 }
+
 function setSelection(newPose) {
     try {
         document.querySelectorAll("selected").forEach((element) => {

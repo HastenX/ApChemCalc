@@ -167,7 +167,7 @@ function unitOneCalc() {
 
         let molarMass = String(document.getElementById("molarMassInput").value);
         let amount = String(document.getElementById("conversionInput").value);
-
+        
         let sigFigs = new SigFigs(molarMass,amount);
 
         let mol = new Moles(0,0);

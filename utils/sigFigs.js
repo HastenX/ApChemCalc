@@ -1,49 +1,32 @@
 export class SigFigs {
     sigFigs;
+    
+    fixedInputs;
     userInputs;
+
     output;
 
     constructor(...userInputs) {
         this.sigFigs = 999999999;
+        this.fixedInputs = [];
+
         userInputs.forEach((num) => {
             let changedNum;
             let exponent = this.getCounterExponent(num);
 
-            // COUNT PRE-DECIMAL ZEROS
-            // if (Number(String(num).at(String(num).length)) == ".") {
-            //     changedNum = String(num).concat("1");
-            //     this.challengeSigFig(Number(String(Number(changedNum) * 10**exponent).replace(".","").length)-1);
-            //     return;
-            // }
             // COUNT LAST ZERO
             if (String(num).includes(".") && Number(String(num).at(String(num).length-1)) == 0) {
                 changedNum = String(num).concat("1");
-                console.log(num)
-                this.challengeSigFig(Number(String(Number(changedNum) * 10**exponent).replace(".","").length)-1);
+                this.fixedInputs.push(Number(String(Number(changedNum) * 10**exponent).replace(".","").length-1));
                 return;
             }
-            // COUNT WITH DECIMAL
-            // if (String(num).includes(".")) {
-            //     this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
-            //     return;
-            // }
 
-            // // // COUNT WITHOUT DECIMAL
-            // if (!String(num).includes(".")) {
-            //     this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
-            //     return;
-            // }
-            this.challengeSigFig(Number(String(Number(num) * 10**exponent).replace(".","").length));
-            console.log(String(Math.floor(Number(num) * 10**(exponent+Number(String(Number(num) * 10**exponent).replace(".","").length-1)))))
+            // DEFAULT SET FOR SIG FIGS
+            this.fixedInputs.push(Number(Number(String(Number(num) * 10**exponent).replace(".","").length)));
         });
-    }
 
-    challengeSigFig(challengeNum) {
-        if(challengeNum < this.sigFigs) {
-            this.sigFigs = challengeNum;
-        } else {
-            return;
-        }
+        // DETERMINES IF THERE IS ROUNDING ERROR. IF NOT, SET SIG FIGS TO VALUE ACCORDINGLY
+        this.sigFigs = Math.min(...this.fixedInputs) >= 17 ? 2 : Math.min(...this.fixedInputs);
     }
 
     getCounterExponent(clampNum) {
