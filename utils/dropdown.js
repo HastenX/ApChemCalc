@@ -148,7 +148,6 @@ window.location.pathname == "/ApChemCalc/html/units/UnitThree.html" ? singleDrop
     : false;
 
 window.location.pathname == "/ApChemCalc/html/units/UnitFour.html" ? (() => {
-    console.log("cool")
     singleDropdown("reactUnit");
     singleDropdown("prodUnit");
 })() : false

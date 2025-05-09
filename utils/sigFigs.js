@@ -1,10 +1,9 @@
 export class SigFigs {
     sigFigs;
-    
-    fixedInputs;
-    userInputs;
-
     output;
+    
+    userInputs;
+    fixedInputs;
 
     constructor(...userInputs) {
         this.sigFigs = 999999999;
@@ -15,18 +14,23 @@ export class SigFigs {
             let exponent = this.getCounterExponent(num);
 
             // COUNT LAST ZERO
-            if (String(num).includes(".") && Number(String(num).at(String(num).length-1)) == 0) {
+            if (String(num).includes(".") 
+                && Number(String(num).at(String(num).length-1)) == 0 
+                && Number(Number(String(Number(num) * 10**exponent).replace(".","").length) <10)) {
                 changedNum = String(num).concat("1");
                 this.fixedInputs.push(Number(String(Number(changedNum) * 10**exponent).replace(".","").length-1));
                 return;
             }
 
-            // DEFAULT SET FOR SIG FIGS
-            this.fixedInputs.push(Number(Number(String(Number(num) * 10**exponent).replace(".","").length)));
+            // DEFAULT SET FOR SIG FIGS, PREENTS 17 FROM MAKING CODE NOT WORK
+            // TODO: SET CORRECT AMOUNT IF SIG FIGS ARE LESS/ MORE THAN 2
+            console.log(String(Number(num) * 10**exponent).replace(".","")> 10);
+            this.fixedInputs.push(Number(Number(String(Number(num) * 10**exponent).replace(".","").length)) > 10 ? 
+                String(num).replace(".","").length
+                : Number(Number(String(Number(num) * 10**exponent).replace(".","").length)));
+            console.log(this.fixedInputs)
         });
-
-        // DETERMINES IF THERE IS ROUNDING ERROR. IF NOT, SET SIG FIGS TO VALUE ACCORDINGLY
-        this.sigFigs = Math.min(...this.fixedInputs) >= 17 ? 2 : Math.min(...this.fixedInputs);
+        this.sigFigs = Math.min(...this.fixedInputs);
     }
 
     getCounterExponent(clampNum) {
