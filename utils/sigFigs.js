@@ -10,25 +10,34 @@ export class SigFigs {
         this.fixedInputs = [];
 
         userInputs.forEach((num) => {
-            let changedNum;
-            let exponent = this.getCounterExponent(num);
+            
 
-            // COUNT LAST ZERO
-            if (String(num).includes(".") 
-                && Number(String(num).at(String(num).length-1)) == 0 
-                && Number(Number(String(Number(num) * 10**exponent).replace(".","").length) <10)) {
-                changedNum = String(num).concat("1");
-                this.fixedInputs.push(Number(String(Number(changedNum) * 10**exponent).replace(".","").length-1));
-                return;
+            // IF SIG FIG HAS DECIMAL
+            if (String(num).includes(".")) {
+
+                // IF SIG FIG HAS LEADING ZEROS
+                if(String(num).at(0) == "0" || String(num).at(0) == ".") {
+                    let fixedNum = num;
+
+                    this.fixedInputs.push(String(num).replace(".","").length);
+                    while (true) {
+                        // ITERATES TO GET RID OF LEADING ZERO AND MAKES NUMBER TO BE USED
+                        if(String(fixedNum).at(0) == "0" || String(fixedNum).at(0) == ".") {
+                            fixedNum = fixedNum.slice(1);
+                        } else {
+                            this.fixedInputs.push(String(fixedNum).replace(".","").length);
+                            break;
+                        }
+                    }
+                } else {
+                    // IF SIG FIG HAS ZEROS PAST DECIMAL POINT
+                    this.fixedInputs.push(String(num).replace(".","").length);
+                    return
+                }
+            } else {
+                // IF SIG FIG HAS WHOLE NUMBER (NO DECIMAL), GET RID OF TRAILING ZEROS (USELESS)
+                this.fixedInputs.push(String(num).replace(".","").replace("0","").length);
             }
-
-            // DEFAULT SET FOR SIG FIGS, PREENTS 17 FROM MAKING CODE NOT WORK
-            // TODO: SET CORRECT AMOUNT IF SIG FIGS ARE LESS/ MORE THAN 2
-            console.log(String(Number(num) * 10**exponent).replace(".","")> 10);
-            this.fixedInputs.push(Number(Number(String(Number(num) * 10**exponent).replace(".","").length)) > 10 ? 
-                String(num).replace(".","").length
-                : Number(Number(String(Number(num) * 10**exponent).replace(".","").length)));
-            console.log(this.fixedInputs)
         });
         this.sigFigs = Math.min(...this.fixedInputs);
     }
