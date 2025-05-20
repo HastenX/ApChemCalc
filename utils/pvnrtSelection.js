@@ -25,7 +25,7 @@ class pvnrtClamp {
         switch(this.solveFor) {
             case this.mole:
                 this.sigFigs = new SigFigs(this.pres,this.temp,this.vol);
-                this.solveFor = "mole"
+                this.solveFor = "mole";
                 this.amount = (Number(this.pres)*Number(this.vol))/(gasConstant*Number(this.temp));
                 break;
             case this.pres:
@@ -35,12 +35,12 @@ class pvnrtClamp {
                 break;
             case this.temp:
                 this.sigFigs = new SigFigs(this.pres,this.pres,this.vol);
-                this.solveFor = "temp"
+                this.solveFor = "temp";
                 this.amount = Number(this.pres)*Number(this.vol)/(gasConstant*Number(this.mole))
                 break;
             case this.vol:
                 this.sigFigs = new SigFigs(this.pres,this.temp,this.mole);
-                this.solveFor = "vol"
+                this.solveFor = "vol";
                 this.amount = (gasConstant*Number(this.mole)*Number(this.temp)/Number(this.pres));
                 break;
             default:
