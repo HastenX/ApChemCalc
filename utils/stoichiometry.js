@@ -100,12 +100,6 @@ class Moles {
     }
 }
 
-function resetInputVisibilty() {
-    document.querySelectorAll("#visible").forEach((div) => {
-        div.id = "invisible";
-    });
-}
-
 function resetSpecInputVisibilty(rid) {
     document.querySelectorAll("#visible").forEach((div) => {
         if(div.className.includes(rid)) {
@@ -129,105 +123,60 @@ function isVisibleEntered() {
 
 function setInputVisibilty(btnType) {
     // SIGNS FOR PRESENT: mol, M & g
-    let react;
-    let prod; 
     document.querySelectorAll(btnType).forEach((btn) => 
         btn.addEventListener("click", ()=> {
-            switch(btn.textContent) {
-                case "Moles(mol)": 
-                    document.querySelectorAll("#invisible").forEach((div)=> {
 
-                        if(div.querySelector("#moleInput") && btnType == ".reactUnitBtn") {
-                            react = "moleInput";
-                        }
-                        if(div.querySelector("#moleInput") &&  btnType == ".prodUnitBtn") {
-                            prod = "moleInput";
-                        }
-                    }); 
-                    break;
-                case "Molarity(M)": 
-                    document.querySelectorAll("#invisible").forEach((div)=> {
-                        if(div.querySelector("#molarityInput") && btnType == ".reactUnitBtn") {
-                            react = "molarityInput";
-                        }
-                        if(div.querySelector("#molarityInput") &&  btnType == ".prodUnitBtn") {
-                            prod = "molarityInput";
-                        }
-                    });
-                    break;
-                case "Grams(g)":
-                    document.querySelectorAll("#invisible").forEach((div)=> {
-                        if(div.querySelector("#gramInput") && btnType == ".reactUnitBtn") {
-                            react = "gramInput";
-                        }
-                        if(div.querySelector("#gramInput") &&  btnType == ".prodUnitBtn") {
-                            prod = "gramInput";
-                        }
-                    });
-                    break;                                    
+            if(btnType == ".reactUnitBtn") {
+                resetSpecInputVisibilty("react");
             }
-            enableButtons(react, prod, btnType);
-        }
-    ));
-}
+            if(btnType == ".prodUnitBtn") {
+                resetSpecInputVisibilty("prod");
+            }
 
-function enableButtons(react, prod, btnType) {
-    switch(react) {
-        case "moleInput":
-            resetSpecInputVisibilty("react");
-            document.querySelectorAll("#invisible").forEach((div)=> {
-                if(div.querySelector("#moleInput") && btnType== ".reactUnitBtn") {
-                    div.id = "visible"
-                }
-            });
-            break;
-        case "molarityInput":
-            resetSpecInputVisibilty("react");
-            document.querySelectorAll("#invisible").forEach((div)=> {
-                if(div.querySelector("#molarityInput") && btnType== ".reactUnitBtn") {
-                    div.id = "visible"
-                }
-                if(div.querySelector("#literReactInput") && btnType== ".reactUnitBtn") {
-                    div.id = "visible"
-                }
-            }); 
-            break;
-        case "gramInput":
-            resetSpecInputVisibilty("react");
-            document.querySelectorAll("#invisible").forEach((div)=> {
-                if(div.querySelector("#gramInput") && btnType== ".reactUnitBtn") {
-                    div.id = "visible"
-                }
-                if(div.querySelector("#molarMassReactInput") && btnType== ".reactUnitBtn") {
-                    div.id = "visible"
-                }
-            }); 
-            break;
-        default: 
-            break;
-    }
-    switch(prod) {
-        case "moleInput":
-            break;
-        case "molarityInput":
-            resetSpecInputVisibilty("prod");
-            document.querySelectorAll("#invisible").forEach((div)=> {
-                if(div.querySelector("#literProdInput") && btnType== ".prodUnitBtn") {
-                    div.id = "visible"
-                }
-            }); 
-            break;
-        case "gramInput":
-            resetSpecInputVisibilty("prod");
-            document.querySelectorAll("#invisible").forEach((div)=> {
-                if(div.querySelector("#molarMassProdInput") && btnType== ".prodUnitBtn") {
-                    div.id = "visible"
-                }
-            }); 
-            break;
-        default: 
-            break;
-    }
+            if(btn.textContent == "Moles(mol)") {
+                document.querySelectorAll("#invisible").forEach((div)=> {
+                    if(div.querySelector("#moleInput") && btnType == ".reactUnitBtn") {
+                        div.id = "visible";
+                    }
+
+                    if(div.querySelector("#moleInput") && btnType == ".prodUnitBtn") {
+                        div.id = "visible";
+                    }
+                });
+            }
+
+            if(btn.textContent == "Molarity(M)") {
+                document.querySelectorAll("#invisible").forEach((div)=> {
+
+                    if(div.querySelector("#molarityInput") && btnType == ".reactUnitBtn") {
+                        div.id = "visible";
+                    }
+
+                    if(div.querySelector("#literReactInput") && btnType == ".reactUnitBtn") {
+                        div.id = "visible";
+                    }
+
+                    if(div.querySelector("#literProdInput") && btnType == ".prodUnitBtn") {
+                        div.id = "visible";
+                    }
+                });
+            }
+
+            if(btn.textContent == "Grams(g)") {
+                document.querySelectorAll("#invisible").forEach((div)=> {
+                    if(div.querySelector("#gramInput") && btnType == ".reactUnitBtn") {
+                        div.id = "visible"
+                    }
+                    if(div.querySelector("#molarMassReactInput") && btnType == ".reactUnitBtn") {
+                        div.id = "visible"
+                    }
+                    if(div.querySelector("#molarMassProdInput") && btnType == ".prodUnitBtn") {
+                        div.id = "visible"
+                    }
+                });     
+            }
+        })
+    );
 }
 
 function unitOneCalc() {
