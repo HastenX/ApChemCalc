@@ -352,7 +352,7 @@ function unitFourCalc() {
                     unknownUnit = new Molarity(reactLiters,moles,molarity);
                     moleTransfer.calc(unknownUnit);
                     sigFigs.applySigFigs(moleTransfer.amount);
-                    finalString = finalString.concat("To calculate from Molarity to moles, we simply just multiple the moles by the liters ("+unknownUnit.moles+"mol*"+unknownUnit.liters+"l), giving us"+sigFigs.output+"mol. We simply then multiply by the mole ratio.");
+                    finalString = finalString.concat("To calculate from Molarity to moles, we simply just multiple the moles by the liters ("+unknownUnit.moles+"mol*"+unknownUnit.liters+"l), giving us "+sigFigs.output+"mol. We simply then multiply by the mole ratio.");
                     break;
             }
             if(coefficentOne == coefficentTwo) {
@@ -395,7 +395,7 @@ function unitFourCalc() {
                     break;
                 case "Molarity(M)":
                     sigFigs.applySigFigs(moleTransfer.amount*coefficentThree);
-                    finalString = finalString.concat("To calculate from moles to molarity, we simply just divide the moles by the volume ("+String(sigFigs.output)+"mol or ")
+                    finalString = finalString.concat("To calculate from moles to molarity, we simply just divide the moles by the volume ("+String(sigFigs.output)+"mol/"+prodLiters+"L or ")
                     
                     sigFigs.applySigFigs(moleTransfer.amount*coefficentFour)
                     finalString = finalString.concat(String(sigFigs.output) +"mol/"+prodLiters+"L), giving us ");

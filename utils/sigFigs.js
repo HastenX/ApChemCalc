@@ -77,7 +77,6 @@ export class SigFigs {
     }
 
     applySigFigs(clampNum) {
-        console.log(clampNum);
         if(clampNum == 0) {
             this.output = 0;
             return;
