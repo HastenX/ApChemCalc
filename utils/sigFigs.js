@@ -77,6 +77,11 @@ export class SigFigs {
     }
 
     applySigFigs(clampNum) {
+        console.log(clampNum);
+        if(clampNum == 0) {
+            this.output = 0;
+            return;
+        }
         let exponent = this.getCounterExponent(clampNum);
         this.output = this.clamp(clampNum*10**exponent);
         if (Number(String(this.output).length)-1 < this.sigFigs && !String(this.output).includes(".")) {

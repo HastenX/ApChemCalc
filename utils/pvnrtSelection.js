@@ -1,14 +1,55 @@
 import {SigFigs} from "/ApChemCalc/utils/sigFigs.js";
 
-const gasConstant = 0.08206;
+const gasConstant = Number(0.08206);
 
-let amount;
+let pvnrt
 
-let sigFigs
-let mole;
-let pres;
-let temp;
-let vol;
+class pvnrtClamp {
+    mole;
+    pres;
+    temp;
+    vol;
+
+    solveFor;
+    amount;
+    sigFigs;
+
+    constructor (mole, pres, temp, vol) {
+
+        this.mole = mole;
+        this.pres = pres;
+        this.temp = temp;
+        this.vol = vol;
+
+        this.solveFor = "";
+        switch(this.solveFor) {
+            case this.mole:
+                this.sigFigs = new SigFigs(this.pres,this.temp,this.vol);
+                this.solveFor = "mole"
+                this.amount = (Number(this.pres)*Number(this.vol))/(gasConstant*Number(this.temp));
+                break;
+            case this.pres:
+                this.sigFigs = new SigFigs(this.mole,this.temp,this.vol);
+                this.solveFor = "pres"
+                this.amount = (Number(this.mole)*gasConstant*Number(this.temp))/this.vol
+                break;
+            case this.temp:
+                this.sigFigs = new SigFigs(this.pres,this.pres,this.vol);
+                this.solveFor = "temp"
+                this.amount = Number(this.pres)*Number(this.vol)/(gasConstant*Number(this.mole))
+                break;
+            case this.vol:
+                this.sigFigs = new SigFigs(this.pres,this.temp,this.mole);
+                this.solveFor = "vol"
+                this.amount = (gasConstant*Number(this.mole)*Number(this.temp)/Number(this.pres));
+                break;
+            default:
+                console.log("error in switch");
+        }
+        this.sigFigs.applySigFigs(this.amount);
+        this.amount = this.sigFigs.output;
+    }
+}
 
 function resetDiv() {
     document.querySelectorAll(".horizontalAlignBody").forEach((div) => {
@@ -25,60 +66,34 @@ function checkIfEntered(... selectedContent) {
     return true;
 }
 
-function localClampSigFigs() {
-    sigFigs.applySigFigs(mole);
-    mole = sigFigs.output;
+function calc() {
+    let mole = document.getElementById("moleInput").value;
+    let pres = document.getElementById("presInput").value;
+    let temp = document.getElementById("tempInput").value;
+    let vol = document.getElementById("volInput").value;
 
-    sigFigs.applySigFigs(pres);
-    pres = sigFigs.output;
+    pvnrt = new pvnrtClamp(mole,pres,temp,vol);
 
-    sigFigs.applySigFigs(temp);
-    temp = sigFigs.output;
-
-    sigFigs.applySigFigs(vol);
-    vol = sigFigs.output;
-
-    sigFigs.applySigFigs(amount);
-    amount = sigFigs.output;    
-}
-
-function calc(solveFor) {
-    console.log("cool")
-    mole = document.getElementById("moleInput").value;
-    pres = document.getElementById("presInput").value;
-    temp = document.getElementById("tempInput").value;
-    vol = document.getElementById("volInput").value;
-
-    sigFigs = new SigFigs(mole,pres,temp,vol);
-
-    switch(solveFor) {
+    switch(pvnrt.solveFor) {
         case "mole":
-            amount = (Number(pres)*Number(vol))/(gasConstant*Number(temp));
-            localClampSigFigs();
             document.getElementById("pvnrtOutput").textContent = "In order to calculate Moles of an Ideal Gas, we must use PV = nRT. We do this via dividing the equation"
-                + " by RT to get n= (PV)/(RT). From there, we do (" +pres+"atm * "+vol +"L)/("+String(gasConstant)+"(atm*L)/(mol*°K)*"+temp+"°K), which equals to " +amount +"mol."
-            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(amount)+"mol";
+                + " by RT to get n= (PV)/(RT). From there, we do (" +pvnrt.pres+"atm * "+pvnrt.vol +"L)/("+String(gasConstant)+"(atm*L)/(mol*°K)*"+pvnrt.temp+"°K), which equals to " +pvnrt.amount +"mol."
+            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(pvnrt.amount)+"mol";
             break;
         case "pres": 
-            amount = (Number(mole)*gasConstant*Number(temp))/vol
-            localClampSigFigs();
             document.getElementById("pvnrtOutput").textContent = "In order to calculate Pressure of an Ideal Gas, we must use PV = nRT. We do this via dividing the equation"
-                + " by V to get P = (nRT)/V. From there, we do ("+mole+"mol * "+String(gasConstant)+"(atm*L)/(mol*°K) * "+temp+"°K)/("+vol+"L), which equals to " +amount +"atm."
-            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(amount)+"atm";
+                + " by V to get P = (nRT)/V. From there, we do ("+pvnrt.mole+"mol * "+String(gasConstant)+"(atm*L)/(mol*°K) * "+pvnrt.temp+"°K)/("+pvnrt.vol+"L), which equals to " + pvnrt.amount +"atm."
+            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(pvnrt.amount)+"atm";
             break;
-        case "vol": 
-            amount = (Number(mole)*gasConstant*Number(temp))/pres
-            localClampSigFigs();
+        case "vol":
             document.getElementById("pvnrtOutput").textContent = "In order to calculate Volume of an Ideal Gas, we must use PV = nRT. We do this via dividing the equation"
-                + " by P to get V = (nRT)/P. From there, we do ("+mole+"mol * "+String(gasConstant)+"(atm*L)/(mol*°K) * "+temp+"°K)/("+pres+"atm), which equals to " +amount +"L."
-            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(amount)+"L";
+                + " by P to get V = (nRT)/P. From there, we do ("+pvnrt.mole+"mol * "+String(gasConstant)+"(atm*L)/(mol*°K) * "+pvnrt.temp+"°K)/("+pvnrt.pres+"atm), which equals to " +pvnrt.amount +"L."
+            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(pvnrt.amount)+"L";
             break;
         case "temp":
-            amount = (Number(pres)*Number(vol))/(gasConstant*Number(mole));
-            localClampSigFigs();
             document.getElementById("pvnrtOutput").textContent = "In order to calculate Tempature of an Ideal Gas, we must use PV = nRT. We do this via dividing the equation"
-                + " by RT to get T= (PV)/(Rn). From there, we do (" +pres+"atm * "+vol +"L)/("+String(gasConstant)+"(atm*L)/(mol*°K)*"+mole+"mol), which equals to " +amount +"mol."
-            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(amount)+"°K";
+                + " by RT to get T= (PV)/(Rn). From there, we do (" +pvnrt.pres+"atm * "+pvnrt.vol +"L)/("+String(gasConstant)+"(atm*L)/(mol*°K)*"+pvnrt.mole+"mol), which equals to " +pvnrt.amount +"°K."
+            document.getElementById("pvnrtAnwser").textContent = "Final Anwser: " + String(pvnrt.amount)+"°K";
     }
 }
 
@@ -90,8 +105,8 @@ function unitThreeSelect() {
                 if(div.querySelector(".largeText").textContent.includes(btn.textContent)) {
                     resetDiv();
                     div.style.display = "none";
+                    div.querySelector("input").value = "";
                     undisplayed = div.querySelector(".largeText").textContent;
-                    console.log(undisplayed);
                 }
             });
         })
@@ -104,7 +119,7 @@ function unitThreeSelect() {
                     document.getElementById("volInput"),
                     document.getElementById("presInput"),
                     document.getElementById("tempInput")
-                ) ? calc("mole") : document.getElementById("pvnrtOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                ) ? calc() : document.getElementById("pvnrtOutput").textContent = "Please select and fill in the required data before pressing calculate!";
                 return;
             }
             if(undisplayed == "Pressure(atm, P):") {
@@ -112,17 +127,15 @@ function unitThreeSelect() {
                     document.getElementById("volInput"),
                     document.getElementById("moleInput"),
                     document.getElementById("tempInput")
-                ) ? calc("pres") : document.getElementById("pvnrtOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                ) ? calc() : document.getElementById("pvnrtOutput").textContent = "Please select and fill in the required data before pressing calculate!";
                 return;
             }
-            console.log("Tempature(°K, T):")
-            console.log(undisplayed)
             if(undisplayed == "Tempature(°K, T):") {
                 checkIfEntered(
                     document.getElementById("volInput"),
                     document.getElementById("presInput"),
                     document.getElementById("moleInput")
-                ) ? calc("temp") : console.log("failed")
+                ) ? calc() : document.getElementById("pvnrtOutput").textContent = "Please select and fill in the required data before pressing calculate!";
                 return;
             }
             if(undisplayed == "Volume(L, V):") {
@@ -130,7 +143,7 @@ function unitThreeSelect() {
                     document.getElementById("moleInput"),
                     document.getElementById("presInput"),
                     document.getElementById("tempInput")
-                ) ? calc("vol") : document.getElementById("pvnrtOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                ) ? calc() : document.getElementById("pvnrtOutput").textContent = "Please select and fill in the required data before pressing calculate!";
                 return;
             }
         } else {
