@@ -42,13 +42,13 @@ function unitFiveCalc() {
                     if(dropdownBtn.textContent != "k") {
                         sigFigs.applySigFigs((aInput.value/unitInput.value)/2);
                         anwser = String(sigFigs.output);
-                        finalString  = "To find the k of a zeroth order reaction, we must use the equation t1/2 = [A]0/2k."
-                            + "If we multiply the whole equation by k/(t1/2), we get the equation k = [A]0/2(t1/2). ("
+                        finalString  = "To find the k of a zeroth order reaction, we must use the equation t1/2 = [A]0/(2k)."
+                            + "If we multiply the whole equation by k/(t1/2), we get the equation k = [A]0/(2t1/2). ("
                             + String(aInput.value) + "M)/2(" + String(unitInput.value) + "S^-1), which equals "+ String(anwser) +"M/S^-1";
                     } else{
                         sigFigs.applySigFigs(aInput.value/(2*unitInput.value));
                         anwser = String(sigFigs.output);
-                        finalString  = "To find the t1/2 of a zeroth order reaction, we must use the equation t1/2 = [A]0/2k."
+                        finalString  = "To find the t1/2 of a zeroth order reaction, we must use the equation t1/2 = [A]0/(2k)."
                             + "If we plug the given numbers into the equation, we get ("
                             + String(aInput.value) + "M)/2(" + String(unitInput.value) + "M/S^-1), which equals "+ String(anwser) +"S^-1";
                     }
@@ -72,13 +72,13 @@ function unitFiveCalc() {
                     if(dropdownBtn.textContent != "k") {
                         sigFigs.applySigFigs(1/(unitInput.value*aInput.value));
                         anwser = String(sigFigs.output);
-                        finalString  = "To find the k of a second order reaction, we must use the equation t1/2 = 1/k*[A]0."
-                            + "If we multiply the whole equation by k/(t1/2), we get the equation k = 1/(t1/2)*[A]0. "
+                        finalString  = "To find the k of a second order reaction, we must use the equation t1/2 = 1/(k*[A]0)."
+                            + "If we multiply the whole equation by k/(t1/2), we get the equation k = 1/((t1/2)*[A]0). "
                             + String(1) + "/(" + String(aInput.value) +"M)*(" + String(unitInput.value) + "S^-1), which equals "+ String(anwser) +"M^-1/S^-1";
                     } else{
                         sigFigs.applySigFigs(1/(unitInput.value*aInput.value));
                         anwser = String(sigFigs.output);
-                        finalString  = "To find the t1/2 of a second order reaction, we must use the equation t1/2 = 1/k*[A]0."
+                        finalString  = "To find the t1/2 of a second order reaction, we must use the equation t1/2 = 1/(k*[A]0)."
                             + "We can directly plug the known values into the equation, "
                             + String(1) + "/(" + String(aInput.value) +"M)*(" + String(unitInput.value) + "M^-1*S^-1), which equals "+ String(anwser) +"S^-1";
                     }

@@ -138,10 +138,6 @@ function setInputVisibilty(btnType) {
                     if(div.querySelector("#moleInput") && btnType == ".reactUnitBtn") {
                         div.id = "visible";
                     }
-
-                    if(div.querySelector("#moleInput") && btnType == ".prodUnitBtn") {
-                        div.id = "visible";
-                    }
                 });
             }
 
