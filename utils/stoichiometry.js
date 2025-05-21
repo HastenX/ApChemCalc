@@ -1,4 +1,4 @@
-import {SigFigs} from "/ApChemCalc/utils/sigFigs.js";
+import {SigFigs} from "/ApChemCalc/utils/lib/sigFigs.js";
 
 const avogradoConstant = 6.022 * 10**23;
 const litterConstant = 22.4;

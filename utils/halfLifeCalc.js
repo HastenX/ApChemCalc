@@ -1,4 +1,4 @@
-import {SigFigs} from "/ApChemCalc/utils/sigFigs.js";
+import {SigFigs} from "/ApChemCalc/utils/lib/sigFigs.js";
 
 function unitFiveCalc() {
     let orderInput = document.getElementById("orderInput");
