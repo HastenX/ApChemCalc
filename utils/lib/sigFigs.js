@@ -10,51 +10,53 @@ export class SigFigs {
         this.fixedInputs = [];
 
         userInputs.forEach((num) => {
-            let fixedNum = String(num).split("e")[0];
+            if(num != undefined && num != 0 && num != "") {
+                let fixedNum = String(num).split("e")[0];
 
-            // IF SIG FIG HAS DECIMAL
-            if (String(fixedNum).includes(".")) {
-                // IF SIG FIG HAS LEADING ZEROS
-                if((String(fixedNum).at(0) == "0" && String(fixedNum).includes(".")) || String(fixedNum).at(0) == ".") {
+                // IF SIG FIG HAS DECIMAL
+                if (String(fixedNum).includes(".")) {
+                    // IF SIG FIG HAS LEADING ZEROS
+                    if((String(fixedNum).at(0) == "0" && String(fixedNum).includes(".")) || String(fixedNum).at(0) == ".") {
 
-                    this.fixedInputs.push(String(fixedNum).replace(".","").length);
-                    while (true) {
-                        // ITERATES TO GET RID OF LEADING ZERO AND MAKES NUMBER TO BE USED
-                        if(String(fixedNum).at(0) == "0" || String(fixedNum).at(0) == ".") {
-                            fixedNum = fixedNum.slice(1);
-                        } else {
-                            this.fixedInputs.push(String(fixedNum).replace(".","").length);
-                            break;
+                        this.fixedInputs.push(String(fixedNum).replace(".","").length);
+                        while (true) {
+                            // ITERATES TO GET RID OF LEADING ZERO AND MAKES NUMBER TO BE USED
+                            if(String(fixedNum).at(0) == "0" || String(fixedNum).at(0) == ".") {
+                                fixedNum = fixedNum.slice(1);
+                            } else {
+                                this.fixedInputs.push(String(fixedNum).replace(".","").length);
+                                break;
+                            }
                         }
+                    } else {
+                        // IF SIG FIG HAS ZEROS PAST DECIMAL POINT
+                        this.fixedInputs.push(String(fixedNum).replace(".","").length);
                     }
                 } else {
-                    // IF SIG FIG HAS ZEROS PAST DECIMAL POINT
-                    this.fixedInputs.push(String(fixedNum).replace(".","").length);
-                }
-            } else {
-                // IF WHOLE NUMBER
+                    // IF WHOLE NUMBER
 
-                let i;
-                // REMOVES TRAILING ZEROS OF WHOLE NUMBERS
-                if(String(fixedNum).at(fixedNum.length-1) == "0") {
-                    for(i=fixedNum.length-1; i>0;  i--) {
-                        if(fixedNum[i] != "0") {
-                            break;
+                    let i;
+                    // REMOVES TRAILING ZEROS OF WHOLE NUMBERS
+                    if(String(fixedNum).at(fixedNum.length-1) == "0") {
+                        for(i=fixedNum.length-1; i>0;  i--) {
+                            if(fixedNum[i] != "0") {
+                                break;
+                            }
                         }
+                        fixedNum = fixedNum.slice(0, i+1)
                     }
-                    fixedNum = fixedNum.slice(0, i+1)
-                }
-                // REMOVES LEADING ZEROSOF WHOLE NUMBERS
-                if(fixedNum.at(0) == "0") {
-                    for(i=0; i<fixedNum.length;  i++) {
-                        if(fixedNum.at(i) != 0) {
-                            break;
+                    // REMOVES LEADING ZEROSOF WHOLE NUMBERS
+                    if(fixedNum.at(0) == "0") {
+                        for(i=0; i<fixedNum.length;  i++) {
+                            if(fixedNum.at(i) != 0) {
+                                break;
+                            }
                         }
+                        fixedNum = fixedNum.slice(i, fixedNum.length)
                     }
-                    fixedNum = fixedNum.slice(i, fixedNum.length)
+                    // IF SIG FIG HAS WHOLE NUMBER (NO DECIMAL), GET RID OF TRAILING ZEROS (USELESS)
+                    this.fixedInputs.push(String(fixedNum).length);
                 }
-                // IF SIG FIG HAS WHOLE NUMBER (NO DECIMAL), GET RID OF TRAILING ZEROS (USELESS)
-                this.fixedInputs.push(String(fixedNum).length);
             }
         });
         this.sigFigs = Math.min(...this.fixedInputs);

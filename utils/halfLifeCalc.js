@@ -87,7 +87,7 @@ function unitFiveCalc() {
 
 
             document.getElementById("halfLifeOutput").textContent = finalString;
-            document.getElementById("finalAnwser").textContent = "Final Anwser: " + String(dropdownBtn.textContent != "k" ? String(anwser) +"*M^"+String(1-orderInput.value)+"/S^-1" 
+            document.getElementById("halfLifeFinalAnwser").textContent = "Final Anwser: " + String(dropdownBtn.textContent != "k" ? String(anwser) +"*M^"+String(1-orderInput.value)+"/S^-1" 
                 : String(anwser) +"*S^-1");
         }
     });

@@ -10,6 +10,7 @@
     <script type="module" src="/ApChemCalc/utils/app.js"></script>
     <script type="module" src="/ApChemCalc/utils/dropdown.js"></script>
     <script type="module" src="/ApChemCalc/utils/halfLifeCalc.js"></script>
+    <script type="module" src="/ApChemCalc/utils/rateLawsCalc.js"></script>
 
     <div id="navbar">
         <a class="home" href="/ApChemCalc/index.html">Homepage</a>
@@ -49,7 +50,101 @@
         </div>
         <div class="horizontalAlignHead"><button class="btn" id="calcHalfLife">Calculate!</button></div>
         <div class="horizontalAlignBody"><h class="largeText" id ="halfLifeOutput">Please select and enter data above! Also note that the maximum order in AP Chem is 2 and the minimum is 0!</h></div>
-        <div class="horizontalAlignBody"><h class="largeText" id ="finalAnwser"></h></div>
+        <div class="horizontalAlignBody"><h class="largeText" id ="halfLifeFinalAnwser"></h></div>
+        <div class="horizontalAlignHead">
+            <h2>Rate Laws</h2>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id ="rateDisplay">Inital Rate (M/s)= <a id="rateReactents">k</a></h>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">How many reactents are present (max of 4): </h>
+            <input class="largeNumberInput" id ="amountInput" type="number">
+        </div>
+        <div class="horizontalAlignHead">
+            <h2>Enter Reactent Inputs:</h2>
+        </div>
+        <div id="rateInputs">
+            <div class="horizontalAlignBody visible" id="defaultRateTxt">
+                <h class= "largeText">Please enter the amount of Reactents Above!</h>
+            </div>
+            <div class="invisible verticalAlign" id ="wDiv">
+                <div class="horizontalAlignHead"><h2 >Reactent inputs for W:</h2></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Molarity of W: </h>
+                    <input class="largeNumberInput" id ="wInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Inital Rate of Reaction: </h>
+                    <input class="largeNumberInput" id ="wChangeInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the Molarity of W at a point to determine k: </h>
+                    <input class="largeNumberInput" id ="wFinalInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="xDiv">
+                <div class="horizontalAlignHead"><h2 >Reactent inputs for X:</h2></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Molarity of X: </h>
+                    <input class="largeNumberInput" id ="xInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Inital Rate of Reaction: </h>
+                    <input class="largeNumberInput" id ="xChangeInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the Molarity of X at a point to determine k: </h>
+                    <input class="largeNumberInput" id ="xFinalInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="yDiv">
+                <div class="horizontalAlignHead"><h2 >Reactent inputs for Y:</h2></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Molarity of Y: </h>
+                    <input class="largeNumberInput" id ="yInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Inital Rate of Reaction: </h>
+                    <input class="largeNumberInput" id ="yChangeInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the Molarity of Y at a point to determine k: </h>
+                    <input class="largeNumberInput" id ="yFinalInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="zDiv">
+                <div class="horizontalAlignHead"><h2 >Reactent inputs for Z:</h2></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Molarity of Z: </h>
+                    <input class="largeNumberInput" id ="zInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the change in Inital Rate of Reaction: </h>
+                    <input class="largeNumberInput" id ="zChangeInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the Molarity of Z at a point to determine k: </h>
+                    <input class="largeNumberInput" id ="zFinalInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="pointInput">
+                <div class="horizontalAlignHead">
+                    <h2 >Inital Rate of Reaction: </h2>
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please enter the Inital Rate of Reaction at a point to determine k:</h>
+                    <input class="largeNumberInput" id ="pointFinalInput" type="number">
+                </div>
+            </div>
+            <div id="rateLawResults" class="invisible verticalAlign">
+                <div class="horizontalAlignHead">
+                    <button class="btn" id="calcRateLaws">Calculate!</button>
+                </div>
+                <div class="horizontalAlignBody"><h class="largeText" id ="rateLawOutput">Please enter reactent inputs to determine rate laws!</h></div>
+                <div class="horizontalAlignBody"><h class="largeText" id ="rateLawFinalAnwser"></h></div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

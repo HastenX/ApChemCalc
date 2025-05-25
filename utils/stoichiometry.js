@@ -302,10 +302,10 @@ function unitFourCalc() {
         prod =  document.getElementById("prodUnit").textContent;
 
         finalString = "In order to find "+ prod + " from "+ react + ", from the reactents a + b to the products c + d, you start with converting the reactents to Moles. ";
-        coefficentOne = Math.round(Number(document.getElementById("coefficentOne").value));
-        coefficentTwo = Math.round(Number(document.getElementById("coefficentTwo").value));
-        coefficentThree = Math.round(Number(document.getElementById("coefficentThree").value));
-        coefficentFour = Math.round(Number(document.getElementById("coefficentFour").value));
+        coefficentOne = Number(document.getElementById("coefficentOne").value);
+        coefficentTwo = Number(document.getElementById("coefficentTwo").value);
+        coefficentThree =Number(document.getElementById("coefficentThree").value);
+        coefficentFour = Number(document.getElementById("coefficentFour").value);
 
         moles = document.getElementById("moleInput").value;
         molarity = document.getElementById("molarityInput").value;

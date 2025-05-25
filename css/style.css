@@ -126,6 +126,12 @@ li.listText {
     min-height: 150px;
 }
 
+.verticalAlign {
+    display: flex;
+    flex-direction: column;      
+    justify-content: center;     
+}
+
 .alignLeft {
     justify-content: normal;
     align-items: normal;
@@ -223,5 +229,13 @@ rgba(0,0,0,0.2);
 }
 
 #visible {
+    display: flex;
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
     display: flex;
 }
