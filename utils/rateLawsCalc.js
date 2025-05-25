@@ -42,7 +42,7 @@ function isVisibleEntered() {
 }
 
 function getReactionUnits(order) {
-    return "M^"+String(1-Number(String(order).split("x")[0]))+"S^-1"
+    return "M^"+String(1-Math.round(Number(order)))+"S^-1"
 }
 
 function unitFiveCalc() {
@@ -141,6 +141,7 @@ function unitFiveCalc() {
                     + "Because when the amount of reactent increases by "+ wReact + "M, the inital rate of reaction increases by " + wInitalRate
                     + "M/s, we can take the logbase"+ wReact + " of " + wInitalRate + " to get a order of " + sigFigs.output + " for W.";
                 rateOrder += getReactionOrder(wReact,wInitalRate);
+                console.log(rateOrder)
                 wOrder = (String(sigFigs.output).split("."))[0];
                 rateConstant = Number(rateAtPoint)/(Number(wRateSolve)**Number(wOrder))
             } else {
@@ -153,7 +154,8 @@ function unitFiveCalc() {
                 finalString = finalString + "\n\tTo determine the order of the reactent X, we must find the effect that X has on the Inital Rate of Reaction. "
                     + "Because when the amount of reactent increases by "+ xReact + "M, the inital rate of reaction increases by " + xInitalRate
                     + "M/s, we can take the logbase"+ xReact + " of " + xInitalRate + " to get a order of " + sigFigs.output + " for X.";
-                rateOrder += getReactionOrder(wReact,wInitalRate);
+                rateOrder += getReactionOrder(xReact,xInitalRate);
+                console.log(rateOrder)
                 xOrder = (String(sigFigs.output).split("."))[0];
                 rateConstant = rateConstant * (1/(Number(wRateSolve)**Number(xOrder)))
             }
@@ -164,7 +166,8 @@ function unitFiveCalc() {
                 finalString = finalString + "\n\tTo determine the order of the reactent Y, we must find the effect that W has on the Inital Rate of Reaction. "
                     + "Because when the amount of reactent increases by "+ yReact + "M, the inital rate of reaction increases by " + yInitalRate
                     + "M/s, we can take the logbase"+ yReact + " of " + yInitalRate + " to get a order of " + sigFigs.output + " for Y.";
-                rateOrder += getReactionOrder(wReact,wInitalRate);
+                rateOrder += getReactionOrder(yReact,yInitalRate);
+                console.log(rateOrder)
                 yOrder = (String(sigFigs.output).split("."))[0];
                 rateConstant = rateConstant * (1/(Number(wRateSolve)**Number(yOrder)))
             }
@@ -175,7 +178,8 @@ function unitFiveCalc() {
                 finalString = finalString + "\n\tTo determine the order of the reactent Z, we must find the effect that Z has on the Inital Rate of Reaction. "
                     + "Because when the amount of reactent increases by "+ zReact + "M, the inital rate of reaction increases by " + zInitalRate
                     + "M/s, we can take the logbase"+ zReact + " of " + zInitalRate + " to get a order of " + sigFigs.output + " for Z.";
-                rateOrder += getReactionOrder(wReact,wInitalRate);  
+                rateOrder += getReactionOrder(zReact,zInitalRate);  
+                console.log(rateOrder)
                 zOrder = (String(sigFigs.output).split("."))[0];
                 rateConstant = rateConstant * (1/(Number(zRateSolve)**Number(wOrder)))           
             }
@@ -193,9 +197,8 @@ function unitFiveCalc() {
 
             document.getElementById("rateLawOutput").innerText = finalString;
 
-            sigFigs.applySigFigs(rateOrder);
             document.getElementById("rateLawFinalAnwser").innerText = "Final Anwser: "+finalEquation 
-                + "\nk= "+ String(rateConstant) + getReactionUnits(sigFigs.output);
+                + "\nk= "+ String(rateConstant) + getReactionUnits(rateOrder);
         }
     });
 }
