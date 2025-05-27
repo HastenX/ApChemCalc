@@ -204,7 +204,7 @@ function unitSevenCalc() {
                         + display.querySelector("#prodDisplay").innerText + "/" + display.querySelector("#reactDisplay").innerText 
                         + '" to calculate the value of the Unknown molairty of Products at Equalibrium.'
                         + " Because we know the value of Kc, order of Reactants and Products, and the Molarity of Reactants at Equalibrium,"
-                        + ' We can solve for the left half of the equation. Therefore, we get the equation: "kc * ' 
+                        + ' We can solve for the left half of the equation. Therefore, we get the equation: "' + equalibriumRxn.kc +'* ' 
                         + String(display.querySelector("#reactDisplay").innerText)
                             .replace("a",equalibriumRxn.reactUOrder).replace("b",equalibriumRxn.reactVOrder).replace("c",equalibriumRxn.reactWOrder)
                             .replace("U",equalibriumRxn.reactU).replace("V",equalibriumRxn.reactV).replace("W",equalibriumRxn.reactW)
