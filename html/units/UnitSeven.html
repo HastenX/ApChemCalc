@@ -8,6 +8,8 @@
 </head>
 <body>
     <script type="module" src="/ApChemCalc/utils/app.js"></script>
+    <script type="module" src="/ApChemCalc/utils/dropdown.js"></script>
+    <script type="module" src="/ApChemCalc/utils/equalibrium.js"></script>
     <div id="navbar">
         <a class="home" href="/ApChemCalc/index.html">Homepage</a>
         <a class="one" href="/ApChemCalc/html/units/UnitOne.html">Unit One</a>
@@ -22,6 +24,115 @@
     </div>
     <div id="pageHtml">
         <h1>Unit 7:</h1>
+        <div class="horizontalAlignHead"><h2>K<sub>c</sub> Calculations (assuming x is negligible)</h2></div>
+        <div class="horizontalAlignBody"><h class="largeText">K<sub>c</sub>= </h>
+            <h class="largeText" id="equationDisplay"><h id="prodDisplay">[Products]</h>/<h id="reactDisplay">[Reactants]</h></h>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">What is being solved for? </h>
+            <div class="dropdownList" id="largeDropdown">
+                <button class="dropdownBtn" id = "solveFor">Unknown</button>  
+                <div class="dropdownContent">
+                    <button class="solveForBtn">Reactants</button>
+                    <button class="solveForBtn">Products</button>
+                    <button class="solveForBtn">Kc</button>
+                </div>
+            </div>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">How many Reactants are present (max of 3): </h>
+            <input class="largeNumberInput" id ="amountReactantInput" type="number">
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">How many Products are present (max of 3): </h>
+            <input class="largeNumberInput" id ="amountProductInput" type="number">
+        </div>
+        <div class="verticalAlign" id="reactInput">
+            <div class="invisible verticalAlign" id="reactUInput">
+                <div class="horizontalAlignHead"><h2>Reactant U Inputs:</h2></div>
+                <div class="horizontalAlignBody invisible molarityInput">
+                    <h class="largeText">Reactant U Molarity:</h>
+                    <input class="largeNumberInput" id ="amountUInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Reactant U Order:</h>
+                    <input class="largeNumberInput" id ="orderUInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="reactVInput">
+                <div class="horizontalAlignHead"><h2>Reactant V Inputs:</h2></div>
+                <div class="horizontalAlignBody invisible molarityInput">
+                    <h class="largeText">Reactant V Molarity:</h>
+                    <input class="largeNumberInput" id ="amountVInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Reactant V Order:</h>
+                    <input class="largeNumberInput" id ="orderVInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="reactWInput">
+                <div class="horizontalAlignHead"><h2>Reactant W Inputs:</h2></div>
+                <div class="horizontalAlignBody invisible molarityInput">
+                    <h class="largeText">Reactant W Molarity:</h>
+                    <input class="largeNumberInput" id ="amountWInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Reactant W Order:</h>
+                    <input class="largeNumberInput" id ="orderWInput" type="number">
+                </div>
+            </div>
+        </div>
+        <div class="verticalAlign" id="prodInput">
+            <div class="invisible verticalAlign" id="prodXInput">
+                <div class="horizontalAlignHead"><h2>Product X Inputs:</h2></div>
+                <div class="horizontalAlignBody invisible molarityInput">
+                    <h class="largeText">Product X Molarity:</h>
+                    <input class="largeNumberInput" id ="amountXInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Product X Order:</h>
+                    <input class="largeNumberInput" id ="orderXInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="prodYInput">
+                <div class="horizontalAlignHead"><h2>Product Y Inputs:</h2></div>
+                <div class="horizontalAlignBody invisible molarityInput">
+                    <h class="largeText">Product Y Molarity:</h>
+                    <input class="largeNumberInput" id ="amountYInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Product Y Order:</h>
+                    <input class="largeNumberInput" id ="orderYInput" type="number">
+                </div>
+            </div>
+            <div class="invisible verticalAlign" id="prodZInput">
+                <div class="horizontalAlignHead"><h2>Reactant Z Inputs:</h2></div>
+                <div class="horizontalAlignBody invisible molarityInput">
+                    <h class="largeText">Reactant Z Molarity:</h>
+                    <input class="largeNumberInput" id ="amountZInput" type="number">
+                </div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Reactant Z Order:</h>
+                    <input class="largeNumberInput" id ="orderZInput" type="number">
+                </div>
+            </div>
+        </div>
+        <div class="verticalAlign" id="kcInput">
+            <div class="verticalAlign invisible">
+                <div class="horizontalAlignHead"><h2>K<sub>c</sub> Inputs:</h></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Value of K<sub>c</sub>:</h>
+                    <input class="largeNumberInput" id ="amountKcInput" type="number">
+                </div>
+            </div>
+        </div>
+        <div id="equalResults" class="verticalAlign">
+            <div class="horizontalAlignHead">
+                <button class="btn" id="calcEqual">Calculate!</button>
+            </div>
+            <div class="horizontalAlignBody"><h class="largeText" id ="equalOutput">Please enter inputs above to determine Equalibrium values!</h></div>
+            <div class="horizontalAlignBody"><h class="largeText" id ="equalFinalAnwser"></h></div>
+        </div>
     </div>
 </body>
 </html>

@@ -157,3 +157,6 @@ window.location.pathname == "/ApChemCalc/html/units/UnitFive.html" ? singleDropd
 
 window.location.pathname == "/ApChemCalc/html/units/UnitSix.html" ? singleDropdown("solveFor")
     : false;
+
+window.location.pathname == "/ApChemCalc/html/units/UnitSeven.html" ? singleDropdown("solveFor")
+    : false;
