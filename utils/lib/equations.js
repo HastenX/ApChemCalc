@@ -162,7 +162,7 @@ export class EqualibriumRxn {
                 )))
                 ,1/(Number(this.reactUOrder)+Number(this.reactVOrder)+Number(this.reactWOrder)))
             ) :
-            Math.pow(((this.kc*(this.reactU**this.reactUOrder)*(this.reactV**this.reactVOrder)*(this.reactU**this.reactUOrder))
+            Math.pow(((this.kc*(this.reactU**this.reactUOrder)*(this.reactV**this.reactVOrder)*(this.reactW**this.reactWOrder))
                 /((
                     (this.prodXOrder == 0 ? 1 : this.prodXOrder**this.prodXOrder) *
                     (this.prodYOrder == 0 ? 1 : this.prodYOrder**this.prodYOrder) *

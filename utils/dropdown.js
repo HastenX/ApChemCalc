@@ -96,37 +96,37 @@ function enableDropdowns() {
     });
 }
 
-function unitOneDropdown() {
-    enableDropdowns();
+// function unitOneDropdown() {
+//     enableDropdowns();
 
-    new dropdown("reactConversion", "prodConversion");
-    new dropdown("prodConversion", "reactConversion");
-}
+//     new dropdown("reactConversion", "prodConversion");
+//     new dropdown("prodConversion", "reactConversion");
+// }
 
-function unitThreeDropdown() {
-    enableDropdowns();
+// function unitThreeDropdown() {
+//     enableDropdowns();
 
-    new dropdown("solveFor");
-}
+//     new dropdown("solveFor");
+// }
 
-function unitFourDropdown() {
-    enableDropdowns();
+// function unitFourDropdown() {
+//     enableDropdowns();
 
-    new dropdown("reactUnit");
-    new dropdown("prodUnit");
-}
+//     new dropdown("reactUnit");
+//     new dropdown("prodUnit");
+// }
 
-function unitFiveDropdown() {
-    enableDropdowns();
+// function unitFiveDropdown() {
+//     enableDropdowns();
 
-    new dropdown("solveFor");
-}
+//     new dropdown("solveFor");
+// }
 
-function unitSixDropdown() {
-    enableDropdowns();
+// function unitSixDropdown() {
+//     enableDropdowns();
 
-    new dropdown("solveFor");
-}
+//     new dropdown("solveFor");
+// }
 
 function pairedDropdown(contentOneName, contentTwoName) {
     enableDropdowns();
@@ -160,3 +160,8 @@ window.location.pathname == "/ApChemCalc/html/units/UnitSix.html" ? singleDropdo
 
 window.location.pathname == "/ApChemCalc/html/units/UnitSeven.html" ? singleDropdown("solveFor")
     : false;
+
+window.location.pathname == "/ApChemCalc/html/units/UnitEight.html" ? (() => {
+        singleDropdown("analyteSolve");
+        singleDropdown("titrantSolve");
+    })() : false

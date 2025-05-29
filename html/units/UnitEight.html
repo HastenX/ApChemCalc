@@ -8,6 +8,8 @@
 </head>
 <body>
     <script type="module" src="/ApChemCalc/utils/app.js"></script>
+    <script type="module" src="/ApChemCalc/utils/dropdown.js"></script>
+    <script type="module" src="/ApChemCalc/utils/pHCalc.js"></script>
     <div id="navbar">
         <a class="home" href="/ApChemCalc/index.html">Homepage</a>
         <a class="one" href="/ApChemCalc/html/units/UnitOne.html">Unit One</a>
@@ -22,6 +24,28 @@
     </div>
     <div id="pageHtml">
         <h1>Unit 8:</h1>
+        <div class="horizontalAlignHead"><h2>pH and pOH of a Weak Acid/ Strong Base Titration:</h2></div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Please select a Analyte and Titrant for the Titration Reaction: </h>
+            <div class="dropdownList" id="largeDropdown">
+                <button class="dropdownBtn" id = "analyteSolve">Select Analyte:</button>  
+                <div class="dropdownContent">
+                    <button class="analyteSolveBtn">Weak Acid</button>
+                    <button class="analyteSolveBtn">Weak Base</button>
+                    <button class="analyteSolveBtn">Strong Acid</button>
+                    <button class="analyteSolveBtn">Strong Base</button>
+                </div>
+            </div>
+            <div class="dropdownList" id="largeDropdown">
+                <button class="dropdownBtn avoidZ" id = "titrantSolve">Select Titrant:</button>  
+                <div class="dropdownContent">
+                    <button class="titrantSolveBtn acid visible">Weak Acid</button>
+                    <button class="titrantSolveBtn base visible">Weak Base</button>
+                    <button class="titrantSolveBtn acid visible">Strong Acid</button>
+                    <button class="titrantSolveBtn base visible">Strong Base</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
