@@ -162,6 +162,11 @@ window.location.pathname == "/ApChemCalc/html/units/UnitSeven.html" ? singleDrop
     : false;
 
 window.location.pathname == "/ApChemCalc/html/units/UnitEight.html" ? (() => {
-        singleDropdown("analyteSolve");
-        singleDropdown("titrantSolve");
+        singleDropdown("solveForpH");
+        singleDropdown("solveForMolarity");
     })() : false
+
+window.location.pathname == "/ApChemCalc/html/units/UnitNine.html" ? (() => {
+    singleDropdown("solveForGHTS")
+    singleDropdown("solveForGNFE")
+    })() : false;

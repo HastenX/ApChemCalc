@@ -79,12 +79,15 @@ export class SigFigs {
     }
 
     applySigFigs(clampNum) {
+        let isNegative = clampNum < 0;
         if(clampNum == 0) {
             this.output = 0;
             return;
         }
-        let exponent = this.getCounterExponent(clampNum);
-        this.output = this.clamp(clampNum*10**exponent);
+        this.output = isNegative ? clampNum *-1 : clampNum;
+
+        let exponent = this.getCounterExponent(this.output);
+        this.output = this.clamp(this.output*10**exponent);
         if (Number(String(this.output).length)-1 < this.sigFigs && !String(this.output).includes(".")) {
             this.output = String(this.output).concat(".");
         }
@@ -92,6 +95,14 @@ export class SigFigs {
             this.output = String(this.output).concat("0");
         }
 
-        this.output = String(this.output).concat("x10^" + String(-exponent));
+        this.output = String(isNegative ? "-": "") + String(this.output).concat("x10^" + String(-exponent));
+    }
+
+    addSigFig() {
+        this.sigFigs++;
+    }
+
+    removeSigFig() {
+        this.sigFigs--;
     }
 }

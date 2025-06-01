@@ -1,6 +1,7 @@
 import {SigFigs} from "/ApChemCalc/utils/lib/sigFigs.js";
 
 const gasConstant = Number(0.08206);
+const faradayConstant = Number(96,485);
 
 export class PVnRTClamp {
     mole;
@@ -42,7 +43,7 @@ export class PVnRTClamp {
                 this.amount = (gasConstant*Number(this.mole)*Number(this.temp)/Number(this.pres));
                 break;
             default:
-                console.log("error in switch");
+                console.error("error in switch");
         }
         this.sigFigs.applySigFigs(this.amount);
         this.amount = this.sigFigs.output;
@@ -89,10 +90,99 @@ export class QMCTClamp {
                 this.amount = Number(heat)/(Number(this.spec) * Number(this.mass));
                 break;
             default:
-                console.log("error in switch");
+                console.error("error in switch");
         }
         this.sigFigs.applySigFigs(this.amount);
         this.amount = this.sigFigs.output;
+    }
+}
+
+
+export class GHTSClamp {
+    freeEnergy;
+    enthapy;
+    temp;
+    entrophy;
+
+    solveFor;
+    amount;
+    sigFigs;
+
+    constructor (freeEnergy, enthapy, temp, entrophy) {
+
+        this.freeEnergy = freeEnergy;
+        this.enthapy = enthapy;
+        this.temp = temp;
+        this.entrophy = entrophy;
+
+        this.solveFor = "";
+        switch(this.solveFor) {
+            case this.freeEnergy:
+                this.sigFigs = new SigFigs(this.enthapy,this.temp,this.entrophy);
+                this.solveFor = "freeEnergy";
+                this.amount = Number(this.enthapy) - (Number(this.temp) * Number(this.entrophy));
+                break;
+            case this.enthapy:
+                this.sigFigs = new SigFigs(this.freeEnergy,this.temp,this.enthapy);
+                this.solveFor = "enthapy"
+                this.amount = Number(this.freeEnergy)+(Number(this.temp) * Number(this.entrophy));
+                break;
+            case this.temp:
+                this.sigFigs = new SigFigs(this.entrophy,this.enthapy,this.freeEnergy);
+                this.solveFor = "temp";
+                this.amount = Number(-Number(this.freeEnergy)+this.enthapy)/Number(this.entrophy);
+                break;
+            case this.entrophy:
+                this.sigFigs = new SigFigs(this.enthapy,this.freeEnergy,this.temp);
+                this.solveFor = "entrophy";
+                this.amount = Number(-Number(this.freeEnergy)+this.enthapy)/Number(this.temp);
+                break;
+            default:
+                console.error("error in switch");
+        }
+        this.sigFigs.applySigFigs(this.amount);
+        this.amount = this.sigFigs.output;
+    }
+}
+
+export class GnFEClamp {
+    freeEnergy;
+    mol;
+    energy;
+
+    solveFor;
+    amount;
+    sigFigs;
+
+    constructor (freeEnergy, mol, energy) {
+        this.freeEnergy = freeEnergy;
+        this.mol = mol;
+        this.energy = energy;
+
+        this.solveFor = "";
+        switch(this.solveFor) {
+            case this.freeEnergy:
+                this.sigFigs = new SigFigs(this.mol, this.energy);
+                this.solveFor = "freeEnergy";
+                this.amount = -Number(this.mol) * faradayConstant * Number(this.energy);
+                console.log(this.amount)
+                break;
+            case this.mol:
+                this.sigFigs = new SigFigs(this.freeEnergy, this.energy);
+                this.solveFor = "mol"
+                this.amount = -Number(this.freeEnergy)/Number(faradayConstant * Number(this.energy));
+                break;
+            case this.energy:
+                this.sigFigs = new SigFigs(this.mol, this.freeEnergy);
+                this.solveFor = "energy";
+                this.amount = -Number(this.freeEnergy)/Number(faradayConstant * Number(this.mol));
+                break;
+            default:
+                console.error("error in switch");
+        }
+        this.sigFigs.applySigFigs(this.amount);
+        this.amount = this.sigFigs.output;
+        console.log(this.amount)
     }
 }
 
@@ -222,5 +312,143 @@ export class EqualibriumRxn {
                 console.error("Error in aligning switch to solveFor");
                 break;
         }
+    }
+}
+
+export class pHCalc {
+    pH;
+    pOH;
+    molarityType;
+
+    molarityH;
+    molarityOH;
+
+    known;
+    sigFigs
+    constructor(pH, pOH, molarity, molarityType) {
+        this.pH = pH;
+        this.pOH = pOH
+        this.molarity = molarity;
+        this.molarityType = molarityType;
+
+        this.sigFigs = new SigFigs(pH, pOH, molarity, molarityType);
+        console.log(pH, pOH, molarity, molarityType)
+        if(this.pH != undefined) {
+
+            if(this.pH>1) {
+                this.sigFigs.removeSigFig();
+            }
+            if(this.pH>10) {
+                this.sigFigs.removeSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(this.pH))));
+            this.molarityH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(14-Number(this.pH)))));
+            this.molarityOH = this.sigFigs.output;
+
+            console.log(this.pOH)
+            if(this.pOH>1) {
+                this.sigFigs.addSigFig();
+            }
+            if(this.pOH>10) {
+                this.sigFigs.addSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(14-Number(this.pH)));
+            this.pOH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(this.pH));
+            this.pH = this.sigFigs.output;
+            return;
+        }
+        if(this.pOH != undefined) {
+            if(this.pOH>1) {
+                this.sigFigs.removeSigFig();
+            }
+            if(this.pOH>10) {
+                this.sigFigs.removeSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(14-this.pOH))));
+            this.molarityH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(this.pOH))));
+            this.molarityOH = this.sigFigs.output;
+
+            if(this.pOH>1) {
+                this.sigFigs.addSigFig();
+            }
+            if(this.pOH>10) {
+                this.sigFigs.addSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(14-Number(this.pOH)));
+            this.pOH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(this.pOH));
+            this.pH = this.sigFigs.output;
+            return;
+        }
+        if(String(this.molarityType) == ("Strong Base")) {
+
+            if(Number(Number(-Math.log10(Number(this.molarity))))>1) {
+                this.sigFigs.addSigFig();
+            }
+            if(Number(Number(-Math.log10(Number(this.molarity))))>10) {
+                this.sigFigs.addSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(14-Number(-Math.log10(Number(this.molarity)))));
+            this.pH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(Number(-Math.log10(Number(this.molarity)))));
+            this.pOH = this.sigFigs.output;
+
+            if(Number(Number(-Math.log10(Number(this.molarity))))>1) {
+                this.sigFigs.removeSigFig();
+            }
+            if(Number(Number(-Math.log10(Number(this.molarity))))>10) {
+                this.sigFigs.removeSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityOH = this.sigFigs.output;
+            return;
+        }
+        if(String(this.molarityType) == ("Strong Acid")) {
+
+            if(Number(Number(-Math.log10(Number(this.molarity))))>=1) {
+                this.sigFigs.addSigFig();
+            }
+            if(Number(Number(-Math.log10(Number(this.molarity))))>=10) {
+                this.sigFigs.addSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(14-Number(-Math.log10(Number(this.molarity)))));
+            this.pOH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(Number(-Math.log10(Number(this.molarity)))));
+            this.pH = this.sigFigs.output;
+
+            if(Number(Number(-Math.log10(Number(this.molarity))))>1) {
+                this.sigFigs.removeSigFig();
+            }
+            if(Number(Number(-Math.log10(Number(this.molarity))))>10) {
+                this.sigFigs.removeSigFig();
+            }
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityOH = this.sigFigs.output;
+
+            this.sigFigs.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityH = this.sigFigs.output;
+            return;
+        }
+        console.log("Error in calc pH");
     }
 }

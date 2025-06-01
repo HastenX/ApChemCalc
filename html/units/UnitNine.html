@@ -8,6 +8,8 @@
 </head>
 <body>
     <script type="module" src="/ApChemCalc/utils/app.js"></script>
+    <script type="module" src="/ApChemCalc/utils/dropdown.js"></script>
+    <script type="module" src="/ApChemCalc/utils/reactSelection.js"></script>
     <div id="navbar">
         <a class="home" href="/ApChemCalc/index.html">Homepage</a>
         <a class="one" href="/ApChemCalc/html/units/UnitOne.html">Unit One</a>
@@ -22,6 +24,79 @@
     </div>
     <div id="pageHtml">
         <h1>Unit 9:</h1>
+        <div class="horizontalAlignHead"><h2>ΔG = ΔH-TΔS</h2></div>
+        <div class="horizontalAlignBody">
+            <h class="largeText">Please select which element you would like to solve for:</h>
+            <div class="dropdownList" id="largeDropdown">
+                <button class="dropdownBtn" id = "solveForGHTS">Product Unit</button>  
+                <div class="dropdownContent">
+                    <button class="solveForGHTSBtn">Gibbs Free Enegry (KJ/mol, ΔG)</button>
+                    <button class="solveForGHTSBtn">Enthapy (KJ/mol, ΔH)</button>
+                    <button class="solveForGHTSBtn">Tempature(°K, T)</button>
+                    <button class="solveForGHTSBtn">Entrophy (J/(mol*°K), ΔS)</button>
+                </div>
+            </div>
+        </div>
+        <div class="horizontalAlignHead" id="unitTitle"><h2>Please enter the known units:</h2></div>
+        <div class="verticalAlign" id="ghtsInputs">
+            <div class="horizontalAlignBody" id="toggle">
+                <h2 class="largeText" id="freeEnergyOne">Gibbs Free Enegry (KJ/mol, ΔG):</h2>
+                <input class="largeNumberInput" id ="freeEnergyOneInput" type="number">
+            </div>
+            <div class="horizontalAlignBody" id="toggle">
+                <h2 class="largeText" id="enthapy">Enthapy (KJ/mol, ΔH):</h2>
+                <input class="largeNumberInput" id ="enthapyInput" type="number">
+            </div>
+            <div class="horizontalAlignBody" id="toggle">
+                <h2 class="largeText" id="temp">Tempature(°K, T):</h2>
+                <input class="largeNumberInput" id ="tempInput" type="number">
+            </div>
+            <div class="horizontalAlignBody" id="toggle">
+                <h2 class="largeText" id="entrophy">Entrophy (J/(mol*°K), ΔS):</h2>
+                <input class="largeNumberInput" id ="entrophyInput" type="number">
+            </div>
+        </div>
+        <div class="horizontalAlignHead"><button class="btn" id="calcGHTS">Calculate!</button></div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="ghtsOutput">Please select and fill in the required data before pressing calculate!</h>
+        </div>
+        <div class="horizontalAlignBody">
+            <h class="largeText" id="ghtsAnwser"></h>
+        </div>
+    </div>
+    <div class="horizontalAlignHead"><h2>ΔG = -nFE<sub>cell</sub></h2></div>
+    <div class="horizontalAlignBody">
+        <h class="largeText">Please select which element you would like to solve for:</h>
+        <div class="dropdownList" id="largeDropdown">
+            <button class="dropdownBtn" id = "solveForGNFE">Product Unit</button>  
+            <div class="dropdownContent">
+                <button class="solveForGNFEBtn">Gibbs Free Enegry (KJ/mol, ΔG)</button>
+                <button class="solveForGNFEBtn">Moles of Electrons(mol, e^-1)</button>
+                <button class="solveForGNFEBtn">Energy of a Galvanic Cell(V, Ecell)</button>
+            </div>
+        </div>
+    </div>
+    <div class="horizontalAlignHead" id="unitTitle"><h2>Please enter the known units:</h2></div>
+    <div class="verticalAlign" id="gnfeInputs">
+        <div class="horizontalAlignBody" id="toggle">
+            <h2 class="largeText" id="freeEnergyTwo">Gibbs Free Enegry (KJ/mol, ΔG):</h2>
+            <input class="largeNumberInput" id ="freeEnergyTwoInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="toggle">
+            <h2 class="largeText" id="mol">Moles of Electrons(mol, e^-1):</h2>
+            <input class="largeNumberInput" id ="molInput" type="number">
+        </div>
+        <div class="horizontalAlignBody" id="toggle">
+            <h2 class="largeText" id="energy">Energy of a Galvanic Cell(V, Ecell):</h2>
+            <input class="largeNumberInput" id ="energyInput" type="number">
+        </div>
+    </div>
+    <div class="horizontalAlignHead"><button class="btn" id="calcGNFE">Calculate!</button></div>
+    <div class="horizontalAlignBody">
+        <h class="largeText" id="gnfeOutput">Please select and fill in the required data before pressing calculate!</h>
+    </div>
+    <div class="horizontalAlignBody">
+        <h class="largeText" id="gnfeAnwser"></h>
     </div>
 </body>
 </html>

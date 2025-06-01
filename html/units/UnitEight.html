@@ -1,3 +1,5 @@
+<!-- TODO: BASIC PH CALC -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,28 +26,56 @@
     </div>
     <div id="pageHtml">
         <h1>Unit 8:</h1>
-        <div class="horizontalAlignHead"><h2>pH and pOH of a Weak Acid/ Strong Base Titration:</h2></div>
+        <div class="horizontalAlignHead"><h2>pH and pOH of a Strong Acid or Base</h2></div>
         <div class="horizontalAlignBody">
-            <h class="largeText">Please select a Analyte and Titrant for the Titration Reaction: </h>
+            <h class="largeText">Please select what value is known: </h>
             <div class="dropdownList" id="largeDropdown">
-                <button class="dropdownBtn" id = "analyteSolve">Select Analyte:</button>  
+                <button class="dropdownBtn" id = "solveForpH">Select Molarity(M), pH or pOH:</button>  
                 <div class="dropdownContent">
-                    <button class="analyteSolveBtn">Weak Acid</button>
-                    <button class="analyteSolveBtn">Weak Base</button>
-                    <button class="analyteSolveBtn">Strong Acid</button>
-                    <button class="analyteSolveBtn">Strong Base</button>
-                </div>
-            </div>
-            <div class="dropdownList" id="largeDropdown">
-                <button class="dropdownBtn avoidZ" id = "titrantSolve">Select Titrant:</button>  
-                <div class="dropdownContent">
-                    <button class="titrantSolveBtn acid visible">Weak Acid</button>
-                    <button class="titrantSolveBtn base visible">Weak Base</button>
-                    <button class="titrantSolveBtn acid visible">Strong Acid</button>
-                    <button class="titrantSolveBtn base visible">Strong Base</button>
+                    <button class="solveForpHBtn">pH</button>
+                    <button class="solveForpHBtn">pOH</button>
+                    <button class="solveForpHBtn">Molarity(M)</button>
                 </div>
             </div>
         </div>
+        <div class="verticalAlign" id="inputs">
+            <div class="verticalAlign invisible" id="pHInputs">
+                <div class="horizontalAlignHead"><h2>pH</h2></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please provide the pH of the solution: </h>
+                    <input class="largeNumberInput" id ="pHInput" type="number">
+                </div>
+            </div>
+            <div class="verticalAlign invisible" id="pOHInputs">
+                <div class="horizontalAlignHead"><h2>pOH</h2></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please provide the pOH of the solution: </h>
+                    <input class="largeNumberInput" id ="pOHInput" type="number">
+                </div>
+            </div>
+            <div class="verticalAlign invisible" id="molarityInputs">
+                <div class="horizontalAlignHead"><h2>Molarity</h2></div>
+                <div class="horizontalAlignBody">
+                    <h class="largeText">Please select a Strong Acid: </h>
+                    <div class="dropdownList" id="largeDropdown">
+                        <button class="dropdownBtn" id = "solveForMolarity">Strong Acid or Base</button>  
+                        <div class="dropdownContent">
+                            <button class="solveForMolarityBtn">Strong Acid</button>
+                            <button class="solveForMolarityBtn">Strong Base</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontalAlignBody stopOverride">
+                    <h class="largeText">Please Enter the Molarity of the <h id="baseAcid">Base/Acid</h>: </h>
+                    <input class="largeNumberInput" id ="amountMolarityInput" type="number">
+                </div>
+            </div>
+        </div>
+        <div class="horizontalAlignHead">
+            <button class="btn" id="calcpH">Calculate!</button>
+        </div>
+        <div class="horizontalAlignBody"><h class="largeText" id ="pHOutput">Please enter solution inputs to determine <h id="solution">pH/pOH/Molarity of H+ and OH-</h>!</h></div>
+        <div class="horizontalAlignBody"><h class="largeText" id ="pHAnwser"></h></div>
     </div>
 </body>
 </html>

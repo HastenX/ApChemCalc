@@ -1,10 +1,15 @@
 import {PVnRTClamp} from "/ApChemCalc/utils/lib/equations.js";
 import {QMCTClamp} from "/ApChemCalc/utils/lib/equations.js";
+import {GHTSClamp} from "/ApChemCalc/utils/lib/equations.js";
+import {GnFEClamp} from "/ApChemCalc/utils/lib/equations.js";
 
 const gasConstant = Number(0.08206);
+const faradayConstant = Number(96,485);
 
 let pvnrt;
 let qmct;
+let ghts;
+let gnfe;
 
 function resetDiv() {
     document.querySelectorAll(".horizontalAlignBody").forEach((div) => {
@@ -13,12 +18,14 @@ function resetDiv() {
 }
 
 function checkIfEntered(... selectedContent) {
+    let returnValue = true;
     selectedContent.forEach((content)=> {
         if(content.value == "") {
-            return false;
+            returnValue = false;
+            return;
         }
     })
-    return true;
+    return returnValue;
 }
 
 function pvnrtCalc() {
@@ -85,6 +92,56 @@ function qmctCalc() {
                 + "Heat by Mass and Specific Heat (" + String(qmct.heat) + "J / (" + String(qmct.mass) + "g * " + String(qmct.spec) + "J/(g*°C)), which equals "
                 + String(qmct.amount) + "°C";
             document.getElementById("qmctAnwser").textContent = "Final Anwser: " + String(qmct.amount)+"°C";
+            break;
+    }
+}
+
+function gsthCalc() {
+    let freeEnergy = document.getElementById("freeEnergyOneInput").value;
+    let enthapy = document.getElementById("enthapyInput").value;
+    let temp = document.getElementById("tempInput").value;
+    let entrophy = document.getElementById("entrophyInput").value;
+
+    ghts = new GHTSClamp(freeEnergy, enthapy, temp, entrophy);
+
+    switch(ghts.solveFor) {
+        case "freeEnergy":
+            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"KJ/mol";
+            break;
+        case "enthapy": 
+            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"KJ/mol";
+            break;
+        case "temp":
+            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"°K";
+            break;
+        case "entrophy":
+            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"J/(mol*°K)";
+    }
+}
+
+function gnfeCalc() {
+    let freeEnergy = document.getElementById("freeEnergyTwoInput").value;
+    let mol = document.getElementById("molInput").value;
+    let energy = document.getElementById("energyInput").value;
+
+    gnfe = new GnFEClamp(freeEnergy, mol, energy);
+
+    switch(gnfe.solveFor) {
+        case "freeEnergy":
+            document.getElementById("gnfeOutput").textContent = "In order to calculate"
+            document.getElementById("gnfeAnwser").textContent = "Final Anwser: " + String(gnfe.amount)+"KJ/mol";
+            break;
+        case "mol":
+            document.getElementById("gnfeOutput").textContent = "In order to calculate"
+            document.getElementById("gnfeAnwser").textContent = "Final Anwser: " + String(gnfe.amount)+"mol e^-";
+            break;
+        case "energy":
+            document.getElementById("gnfeOutput").textContent = "In order to calculate"
+            document.getElementById("gnfeAnwser").textContent = "Final Anwser: " + String(gnfe.amount)+"V";
     }
 }
 
@@ -198,9 +255,115 @@ function unitSixSelect() {
     }));
 }
 
+function unitNineInputsOne() {
+    let undisplayed;
+    document.querySelectorAll(".solveForGHTSBtn").forEach((btn) => 
+        btn.addEventListener("click", ()=> {
+            document.getElementById("ghtsInputs").querySelectorAll("#toggle").forEach((div)=> {
+                if(div.textContent.includes(btn.textContent)) {
+                    resetDiv();
+                    div.style.display = "none";
+                    div.querySelector("input").value = "";
+                    undisplayed = div.querySelector(".largeText").textContent;
+                }
+            });
+        })
+    );
+
+    document.getElementById("calcGHTS").addEventListener("click",(() => {
+        if(undisplayed) {
+            if(undisplayed == "Gibbs Free Enegry (KJ/mol, ΔG):") {
+                checkIfEntered(
+                    document.getElementById("enthapyInput"),
+                    document.getElementById("entrophyInput"),
+                    document.getElementById("tempInput")
+                ) ? gsthCalc() : document.getElementById("ghtsOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                return;
+            }
+            if(undisplayed == "Enthapy (KJ/mol, ΔH):") {
+                checkIfEntered(
+                    document.getElementById("freeEnergyOneInput"),
+                    document.getElementById("entrophyInput"),
+                    document.getElementById("tempInput")
+                ) ? gsthCalc() : document.getElementById("ghtsOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                return;
+            }
+            if(undisplayed == "Tempature(°K, T):") {
+                checkIfEntered(
+                    document.getElementById("freeEnergyOneInput"),
+                    document.getElementById("entrophyInput"),
+                    document.getElementById("enthapyInput")
+                ) ? gsthCalc() : document.getElementById("ghtsOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                return;
+            }
+            if(undisplayed == "Entrophy (J/(mol*°K), ΔS):") {
+                checkIfEntered(
+                    document.getElementById("freeEnergyOneInput"),
+                    document.getElementById("enthapyInput"),
+                    document.getElementById("tempInput")
+                ) ? gsthCalc() : document.getElementById("ghtsOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                return;
+            }
+        } else {
+            document.getElementById("ghtsOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+        }
+    }));
+}
+
+function unitNineInputsTwo() {
+    let undisplayed;
+    document.querySelectorAll(".solveForGNFEBtn").forEach((btn) => 
+        btn.addEventListener("click", ()=> {
+            document.getElementById("gnfeInputs").querySelectorAll("#toggle").forEach((div)=> {
+                if(div.textContent.includes(btn.textContent)) {
+                    resetDiv();
+                    div.style.display = "none";
+                    div.querySelector("input").value = "";
+                    undisplayed = div.querySelector(".largeText").textContent;
+                }
+            });
+        })
+    );
+
+    document.getElementById("calcGNFE").addEventListener("click",(() => {
+        if(undisplayed) {
+            if(undisplayed == "Gibbs Free Enegry (KJ/mol, ΔG):") {
+                checkIfEntered(
+                    document.getElementById("energyInput"),
+                    document.getElementById("molInput")
+                ) ? gnfeCalc() : document.getElementById("gnfeOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                return;
+            }
+            if(undisplayed == "Moles of Electrons(mol, e^-1):") {
+                checkIfEntered(
+                    document.getElementById("freeEnergyTwoInput"),
+                    document.getElementById("energyInput")
+                ) ? gnfeCalc() : document.getElementById("gnfeOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                return;
+            }
+            if(undisplayed == "Energy of a Galvanic Cell(V, Ecell):") {
+                checkIfEntered(
+                    document.getElementById("freeEnergyTwoInput"),
+                    document.getElementById("molInput")
+                ) ? gnfeCalc() : document.getElementById("gnfeOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+                return;
+            }
+        } else {
+            document.getElementById("gnfeOutput").textContent = "Please select and fill in the required data before pressing calculate!";
+        }
+    }));
+}
+
+function unitNineSelect() {
+    unitNineInputsOne();
+    unitNineInputsTwo();
+}
 
 window.location.pathname == "/ApChemCalc/html/units/UnitThree.html" ? unitThreeSelect() 
     : false;
 
 window.location.pathname == "/ApChemCalc/html/units/UnitSix.html" ? unitSixSelect() 
+    : false;
+
+window.location.pathname == "/ApChemCalc/html/units/UnitNine.html" ? unitNineSelect() 
     : false;
