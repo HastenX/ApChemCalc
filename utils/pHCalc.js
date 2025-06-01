@@ -66,7 +66,8 @@ function calcpH() {
                 document.getElementById("solution").textContent = "";
             } catch (e) {}
 
-            document.getElementById("pHOutput").textContent = "In order to calculate";
+            document.getElementById("pHOutput").textContent = "In order to calculate pOH from pH, we must subtract 14 (as it is pKw, and pKw = pH + pOH) by pH)." 
+                + "To calculate [H+], we must put 10^-pH to rearrange the equation pH = -log([H+]). To calculate [OH-], we must put 10^-pOH to rearrenge the equation pOH = -log([OH-]).";
             document.getElementById("pHAnwser").textContent = "Final Anwser: \npH = " + phCalc.pH +",\npOH = " + phCalc.pOH +",\n[OH-] = " + phCalc.molarityOH +",\n[H+] = " + phCalc.molarityH;
             break;
         case "pOHInputs":
@@ -76,7 +77,8 @@ function calcpH() {
                 document.getElementById("solution").textContent = "";
             } catch (e) {}
 
-            document.getElementById("pHOutput").textContent = "In order to calculate";
+            document.getElementById("pHOutput").textContent = "In order to calculate pH from pOH, we must subtract 14 (as it is pKw, and pKw = pH + pOH) by pH) by pOH." 
+                + "To calculate [H+], we must put 10^-pH to rearrange the equation pH = -log([H+]). To calculate [OH-], we must put 10^-pOH to rearrenge the equation pOH = -log([OH-]).";
             document.getElementById("pHAnwser").textContent = "Final Anwser: \npH = " + phCalc.pH +",\npOH = " + phCalc.pOH +",\n[OH-] = " + phCalc.molarityOH +",\n[H+] = " + phCalc.molarityH;
             break;
         case "molarityInputs": 
@@ -87,11 +89,13 @@ function calcpH() {
             } catch (e) {}
 
             if(molarityType == "Strong Base") {
-                document.getElementById("pHOutput").textContent = "In order to calculate";
+                document.getElementById("pHOutput").textContent = "In order to calculate pOH from [OH-] (as the Strong Base completely dissolves), we must take the -log([OH-]), giving us pOH. To calculate pH, we must subtract 14 (as it is pKw, and pKw = pH + pOH) by pOH"
+                    + ", giving us pH. In order to calculate [H+] from pH, we must put 10^-pH to rearrange the equation pH = -log([H+])."
                 document.getElementById("pHAnwser").textContent = "Final Anwser: \npH = " + phCalc.pH +",\npOH = " + phCalc.pOH +",\n[OH-] = " + phCalc.molarityOH +",\n[H+] = " + phCalc.molarityH;
             }
             if(molarityType == "Strong Acid") {
-                document.getElementById("pHOutput").textContent = "In order to calculate";
+                document.getElementById("pHOutput").textContent = "In order to calculate pOH from [H+] (as the Strong Acid completely dissolves), we must take the -log([H+]), giving us pH. To calculate pOH, we must subtract 14 (as it is pKw, and pKw = pH + pOH) by pH"
+                    + ", giving us pOH. In order to calculate [OH-] from pOH, we must put 10^-pH to rearrange the equation pH = -log([H+])."
                 document.getElementById("pHAnwser").textContent = "Final Anwser: \npH = "+ phCalc.pH +",\npOH = " + phCalc.pOH + ",\n[OH-] = " + phCalc.molarityOH+",\n[H+] = " + phCalc.molarityH;
             }
             break;

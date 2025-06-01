@@ -323,130 +323,100 @@ export class pHCalc {
     molarityH;
     molarityOH;
 
-    known;
-    sigFigs
     constructor(pH, pOH, molarity, molarityType) {
         this.pH = pH;
         this.pOH = pOH
         this.molarity = molarity;
         this.molarityType = molarityType;
 
-        this.sigFigs = new SigFigs(pH, pOH, molarity, molarityType);
-        console.log(pH, pOH, molarity, molarityType)
+        let pHSigFigs = new SigFigs(pH, pOH, molarity, molarityType);
+        let molarityFig = new SigFigs(pH, pOH, molarity, molarityType);
+
+        let pOHSigFigs = new SigFigs(pH, pOH, molarity, molarityType);;
+
         if(this.pH != undefined) {
-
-            if(this.pH>1) {
-                this.sigFigs.removeSigFig();
-            }
-            if(this.pH>10) {
-                this.sigFigs.removeSigFig();
+            for(let i=1; i<= String(this.pH).split(".")[0].length; i++) {
+                molarityFig.removeSigFig();
             }
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(this.pH))));
-            this.molarityH = this.sigFigs.output;
+            pOHSigFigs.sigFigs = (String(14-this.pH).split(".")[0] +String(this.pH).split(".")[1]).length;
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(14-Number(this.pH)))));
-            this.molarityOH = this.sigFigs.output;
+            molarityFig.applySigFigs(Number(10**(-Number(this.pH))));
+            this.molarityH = molarityFig.output;
 
-            console.log(this.pOH)
-            if(this.pOH>1) {
-                this.sigFigs.addSigFig();
-            }
-            if(this.pOH>10) {
-                this.sigFigs.addSigFig();
-            }
+            molarityFig.applySigFigs(Number(10**(-Number(14-Number(this.pH)))));
+            this.molarityOH = molarityFig.output;
 
-            this.sigFigs.applySigFigs(Number(14-Number(this.pH)));
-            this.pOH = this.sigFigs.output;
+            pOHSigFigs.applySigFigs(Number(14-Number(this.pH)))
+            this.pOH = pOHSigFigs.output
 
-            this.sigFigs.applySigFigs(Number(this.pH));
-            this.pH = this.sigFigs.output;
+            pHSigFigs.applySigFigs(this.pH)
+            this.pH = pHSigFigs.output
             return;
         }
         if(this.pOH != undefined) {
-            if(this.pOH>1) {
-                this.sigFigs.removeSigFig();
+            for(let i=1; i<= String(this.pOH).split(".")[0].length; i++) {
+                molarityFig.removeSigFig();
             }
-            if(this.pOH>10) {
-                this.sigFigs.removeSigFig();
-            }
+            pHSigFigs.sigFigs = (String(14-this.pOH).split(".")[0] +String(this.pOH).split(".")[1]).length;
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(14-this.pOH))));
-            this.molarityH = this.sigFigs.output;
+            molarityFig.applySigFigs(Number(10**(-Number(this.pOH))));
+            this.molarityOH = molarityFig.output;
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(this.pOH))));
-            this.molarityOH = this.sigFigs.output;
+            molarityFig.applySigFigs(Number(10**(-Number(14-Number(this.pOH)))));
+            this.molarityH = molarityFig.output;
 
-            if(this.pOH>1) {
-                this.sigFigs.addSigFig();
-            }
-            if(this.pOH>10) {
-                this.sigFigs.addSigFig();
-            }
+            pHSigFigs.applySigFigs(Number(14-Number(this.pOH)))
+            this.pH = pHSigFigs.output
 
-            this.sigFigs.applySigFigs(Number(14-Number(this.pOH)));
-            this.pOH = this.sigFigs.output;
-
-            this.sigFigs.applySigFigs(Number(this.pOH));
-            this.pH = this.sigFigs.output;
+            pOHSigFigs.applySigFigs(this.pOH)
+            this.pOH = pOHSigFigs.output
             return;
         }
         if(String(this.molarityType) == ("Strong Base")) {
-
-            if(Number(Number(-Math.log10(Number(this.molarity))))>1) {
-                this.sigFigs.addSigFig();
-            }
-            if(Number(Number(-Math.log10(Number(this.molarity))))>10) {
-                this.sigFigs.addSigFig();
+            let temppH = Number(14-Number(-Math.log10(Number(this.molarity))));
+            let temppOH = Number(Number(-Math.log10(Number(this.molarity))));
+            for(let i=1; i<= String(temppOH).split(".")[0].length; i++) {
+                pOHSigFigs.removeSigFig();
             }
 
-            this.sigFigs.applySigFigs(Number(14-Number(-Math.log10(Number(this.molarity)))));
-            this.pH = this.sigFigs.output;
+            pHSigFigs.sigFigs = Number(String(temppH).split(".")[0].length +molarityFig.sigFigs);
+            pOHSigFigs.sigFigs = Number(String(temppOH).split(".")[0].length +molarityFig.sigFigs);
 
-            this.sigFigs.applySigFigs(Number(Number(-Math.log10(Number(this.molarity)))));
-            this.pOH = this.sigFigs.output;
+            pHSigFigs.applySigFigs(Number(14-Number(-Math.log10(Number(this.molarity)))));
+            this.pH = pHSigFigs.output;
 
-            if(Number(Number(-Math.log10(Number(this.molarity))))>1) {
-                this.sigFigs.removeSigFig();
-            }
-            if(Number(Number(-Math.log10(Number(this.molarity))))>10) {
-                this.sigFigs.removeSigFig();
-            }
+            pOHSigFigs.applySigFigs(Number(Number(-Math.log10(Number(this.molarity)))));
+            this.pOH = pOHSigFigs.output;
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
-            this.molarityH = this.sigFigs.output;
+            molarityFig.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityH = molarityFig.output;
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
-            this.molarityOH = this.sigFigs.output;
+            molarityFig.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityOH = molarityFig.output;
             return;
         }
         if(String(this.molarityType) == ("Strong Acid")) {
-
-            if(Number(Number(-Math.log10(Number(this.molarity))))>=1) {
-                this.sigFigs.addSigFig();
-            }
-            if(Number(Number(-Math.log10(Number(this.molarity))))>=10) {
-                this.sigFigs.addSigFig();
+            let temppOH = Number(14-Number(-Math.log10(Number(this.molarity))));
+            let temppH = Number(Number(-Math.log10(Number(this.molarity))));
+            for(let i=1; i<= String(temppOH).split(".")[0].length; i++) {
+                pOHSigFigs.removeSigFig();
             }
 
-            this.sigFigs.applySigFigs(Number(14-Number(-Math.log10(Number(this.molarity)))));
-            this.pOH = this.sigFigs.output;
+            pHSigFigs.sigFigs = Number(String(temppH).split(".")[0].length +molarityFig.sigFigs);
+            pOHSigFigs.sigFigs = Number(String(temppOH).split(".")[0].length +molarityFig.sigFigs);
 
-            this.sigFigs.applySigFigs(Number(Number(-Math.log10(Number(this.molarity)))));
-            this.pH = this.sigFigs.output;
+            pOHSigFigs.applySigFigs(Number(14-Number(-Math.log10(Number(this.molarity)))));
+            this.pOH = pOHSigFigs.output;
 
-            if(Number(Number(-Math.log10(Number(this.molarity))))>1) {
-                this.sigFigs.removeSigFig();
-            }
-            if(Number(Number(-Math.log10(Number(this.molarity))))>10) {
-                this.sigFigs.removeSigFig();
-            }
+            pHSigFigs.applySigFigs(Number(Number(-Math.log10(Number(this.molarity)))));
+            this.pH = pHSigFigs.output;
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
-            this.molarityOH = this.sigFigs.output;
+            molarityFig.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityOH = molarityFig.output;
 
-            this.sigFigs.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
-            this.molarityH = this.sigFigs.output;
+            molarityFig.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
+            this.molarityH = molarityFig.output;
             return;
         }
         console.log("Error in calc pH");

@@ -97,11 +97,6 @@ export class SigFigs {
 
         this.output = String(isNegative ? "-": "") + String(this.output).concat("x10^" + String(-exponent));
     }
-
-    addSigFig() {
-        this.sigFigs++;
-    }
-
     removeSigFig() {
         this.sigFigs--;
     }
