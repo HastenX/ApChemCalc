@@ -106,19 +106,19 @@ function gsthCalc() {
 
     switch(ghts.solveFor) {
         case "freeEnergy":
-            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsOutput").textContent = "In order to calculate ΔG, we must use the equation ΔG = ΔH-TΔS. Thus, we simply plug in the values above to get ΔG."
             document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"KJ/mol";
             break;
         case "enthapy": 
-            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsOutput").textContent = "In order to calculate ΔH, we must use the equation ΔG = ΔH-TΔS, but add TΔS to both sides-- giving us the equaion ΔH = ΔG + TΔS. Thus, we simply plug in the values above to get ΔH."
             document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"KJ/mol";
             break;
         case "temp":
-            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsOutput").textContent = "In order to calculate T, we must use the eqaution ΔG = ΔH-TΔS, but subtract both sides by ΔH and divide by -ΔS-- giving us the equation T = -(ΔG + ΔH)/ΔS. Thus, we simply plug in the values above to get T."
             document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"°K";
             break;
         case "entrophy":
-            document.getElementById("ghtsOutput").textContent = "In order to calculate"
+            document.getElementById("ghtsOutput").textContent = "In order to calculate ΔS, we must use the eqaution ΔG = ΔH-TΔS, but subtract both sides by ΔH and divide by -T-- giving us the equation ΔS = -(ΔG + ΔH)/T. Thus, we simply plug in the values above to get ΔS."
             document.getElementById("ghtsAnwser").textContent = "Final Anwser: " + String(ghts.amount)+"J/(mol*°K)";
     }
 }
@@ -132,15 +132,15 @@ function gnfeCalc() {
 
     switch(gnfe.solveFor) {
         case "freeEnergy":
-            document.getElementById("gnfeOutput").textContent = "In order to calculate"
+            document.getElementById("gnfeOutput").textContent = "In order to calculate ΔG, we must use the equation ΔG = -nFE. Thus, we simply plug the values above into the equation (and substitute in Faraday's Constant for F, 96,485 C/mole^-1) to get ΔG."
             document.getElementById("gnfeAnwser").textContent = "Final Anwser: " + String(gnfe.amount)+"KJ/mol";
             break;
         case "mol":
-            document.getElementById("gnfeOutput").textContent = "In order to calculate"
+            document.getElementById("gnfeOutput").textContent = "In order to calculate Moles of Electrons, we must use the equation ΔG = -nFE-- which we can use to get n via dividing the whole equation by -EF, giving us -ΔG/EF = n. Thus, we simply plug the values above into the equation (and substitute in Faraday's Constant for F, 96,485 C/mole^-1) to get n."
             document.getElementById("gnfeAnwser").textContent = "Final Anwser: " + String(gnfe.amount)+"mol e^-";
             break;
         case "energy":
-            document.getElementById("gnfeOutput").textContent = "In order to calculate"
+            document.getElementById("gnfeOutput").textContent = "In order to calculate Energy of a cell, we must use the equation ΔG = -nFE-- which we can use to get E via dividing the whole equation by -nF, giving us -ΔG/nF = E. Thus, we simply plug the values above into the equation (and substitute in Faraday's Constant for F, 96,485 C/mole^-1) to get E."
             document.getElementById("gnfeAnwser").textContent = "Final Anwser: " + String(gnfe.amount)+"V";
     }
 }

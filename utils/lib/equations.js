@@ -120,17 +120,17 @@ export class GHTSClamp {
             case this.freeEnergy:
                 this.sigFigs = new SigFigs(this.enthapy,this.temp,this.entrophy);
                 this.solveFor = "freeEnergy";
-                this.amount = Number(this.enthapy) - (Number(this.temp) * Number(this.entrophy));
+                this.amount = Number(this.enthapy) - ((Number(this.temp) * Number(this.entrophy)));
                 break;
             case this.enthapy:
                 this.sigFigs = new SigFigs(this.freeEnergy,this.temp,this.enthapy);
                 this.solveFor = "enthapy"
-                this.amount = Number(this.freeEnergy)+(Number(this.temp) * Number(this.entrophy));
+                this.amount = Number(this.freeEnergy)+((Number(this.temp) * Number(this.entrophy)));
                 break;
             case this.temp:
                 this.sigFigs = new SigFigs(this.entrophy,this.enthapy,this.freeEnergy);
                 this.solveFor = "temp";
-                this.amount = Number(-Number(this.freeEnergy)+this.enthapy)/Number(this.entrophy);
+                this.amount = Number(-Number((Number(this.freeEnergy))+Number(this.enthapy)))/Number(this.entrophy);
                 break;
             case this.entrophy:
                 this.sigFigs = new SigFigs(this.enthapy,this.freeEnergy,this.temp);
