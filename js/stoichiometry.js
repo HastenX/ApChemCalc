@@ -1,4 +1,4 @@
-import {SigFigs} from "/ApChemCalc/utils/lib/sigFigs.js";
+import {SigFigs} from "/ApChemCalc/js/lib/sigFigs.js";
 
 const avogradoConstant = 6.022 * 10**23;
 const litterConstant = 22.4;
@@ -47,7 +47,7 @@ class Molarity {
     liters;
     moles;
     amount;
-    // TODO: ALWAYS USE UNDEFINED FOR UNKNOWN THING
+    // TODO: ALWAYS USE UNDEFINED FOR UNKNOWN THING (AS PARAMETER)
     constructor (liters, moles, amount) {
         this.liters = liters;
         this.moles = moles;

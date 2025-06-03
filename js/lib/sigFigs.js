@@ -45,7 +45,7 @@ export class SigFigs {
                         }
                         fixedNum = fixedNum.slice(0, i+1)
                     }
-                    // REMOVES LEADING ZEROSOF WHOLE NUMBERS
+                    // REMOVES LEADING ZEROS OF WHOLE NUMBERS
                     if(fixedNum.at(0) == "0") {
                         for(i=0; i<fixedNum.length;  i++) {
                             if(fixedNum.at(i) != 0) {

@@ -1,4 +1,4 @@
-import {SigFigs} from "/ApChemCalc/utils/lib/sigFigs.js";
+import {SigFigs} from "/ApChemCalc/js/lib/sigFigs.js";
 
 let lawAmount;
 
@@ -6,6 +6,7 @@ function logBase(solveFor, base) {
     if(solveFor == base) {
         return 1;
     }
+    // MAKES SURE THAT NO ERROR WILL BE THROWN (I.E.: LOG OF 0)
     if(base == 0 || base == 1 || solveFor == 0 || solveFor == 1)  {
         return 0;
     }

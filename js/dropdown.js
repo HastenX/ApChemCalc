@@ -1,3 +1,34 @@
+class dropdown {
+    dropdownClass;
+    conjugateClass;
+    constructor(dropdownClass, conjugateClass) {
+        this.dropdownClass = dropdownClass;
+        this.conjugateClass = conjugateClass;
+
+        document.querySelectorAll("."+this.dropdownClass+"Btn").forEach((element) => {
+            element.addEventListener("click", (() => {
+                if(this.conjugateClass) {
+                    if(!isElementDisplayed(element,this.conjugateClass)
+                        && !isElementDisplayed(element, this.dropdownClass)) {
+                        element.id = reselect(this.dropdownClass+"Btn");
+                        
+                        document.getElementById(this.dropdownClass).textContent = element.textContent;
+                        closeAllDropdowns();
+                    }
+                }
+                if(!this.conjugateClass 
+                    && !isElementDisplayed(element, this.dropdownClass)) {
+                    element.id = reselect(this.dropdownClass+"Btn");
+                        
+                    document.getElementById(this.dropdownClass).textContent = element.textContent;
+                    closeAllDropdowns();
+                }
+            }));
+            enterOneColorListeners(element, this.dropdownClass, this.conjugateClass);
+        });
+    }
+}
+
 function reselect(instance) {
     document.querySelectorAll(String("#selected"+instance))
         .forEach((element) => {
@@ -50,37 +81,6 @@ function closeAllDropdowns() {
     });
 }
 
-class dropdown {
-    dropdownClass;
-    conjugateClass;
-    constructor(dropdownClass, conjugateClass) {
-        this.dropdownClass = dropdownClass;
-        this.conjugateClass = conjugateClass;
-
-        document.querySelectorAll("."+this.dropdownClass+"Btn").forEach((element) => {
-            element.addEventListener("click", (() => {
-                if(this.conjugateClass) {
-                    if(!isElementDisplayed(element,this.conjugateClass)
-                        && !isElementDisplayed(element, this.dropdownClass)) {
-                        element.id = reselect(this.dropdownClass+"Btn");
-                        
-                        document.getElementById(this.dropdownClass).textContent = element.textContent;
-                        closeAllDropdowns();
-                    }
-                }
-                if(!this.conjugateClass 
-                    && !isElementDisplayed(element, this.dropdownClass)) {
-                    element.id = reselect(this.dropdownClass+"Btn");
-                        
-                    document.getElementById(this.dropdownClass).textContent = element.textContent;
-                    closeAllDropdowns();
-                }
-            }));
-            enterOneColorListeners(element, this.dropdownClass, this.conjugateClass);
-        });
-    }
-}
-
 function enableDropdowns() {
     document.querySelectorAll(".dropdownList").forEach((list) => {
         let btn = list.querySelector(".dropdownBtn");
@@ -95,38 +95,6 @@ function enableDropdowns() {
         }));
     });
 }
-
-// function unitOneDropdown() {
-//     enableDropdowns();
-
-//     new dropdown("reactConversion", "prodConversion");
-//     new dropdown("prodConversion", "reactConversion");
-// }
-
-// function unitThreeDropdown() {
-//     enableDropdowns();
-
-//     new dropdown("solveFor");
-// }
-
-// function unitFourDropdown() {
-//     enableDropdowns();
-
-//     new dropdown("reactUnit");
-//     new dropdown("prodUnit");
-// }
-
-// function unitFiveDropdown() {
-//     enableDropdowns();
-
-//     new dropdown("solveFor");
-// }
-
-// function unitSixDropdown() {
-//     enableDropdowns();
-
-//     new dropdown("solveFor");
-// }
 
 function pairedDropdown(contentOneName, contentTwoName) {
     enableDropdowns();

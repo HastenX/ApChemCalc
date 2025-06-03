@@ -1,7 +1,7 @@
-import {PVnRTClamp} from "/ApChemCalc/utils/lib/equations.js";
-import {QMCTClamp} from "/ApChemCalc/utils/lib/equations.js";
-import {GHTSClamp} from "/ApChemCalc/utils/lib/equations.js";
-import {GnFEClamp} from "/ApChemCalc/utils/lib/equations.js";
+import {PVnRTClamp} from "/ApChemCalc/js/lib/equations.js";
+import {QMCTClamp} from "/ApChemCalc/js/lib/equations.js";
+import {GHTSClamp} from "/ApChemCalc/js/lib/equations.js";
+import {GnFEClamp} from "/ApChemCalc/js/lib/equations.js";
 
 const gasConstant = Number(0.08206);
 const faradayConstant = Number(96,485);

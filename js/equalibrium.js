@@ -1,4 +1,4 @@
-import {EqualibriumRxn} from "/ApChemCalc/utils/lib/equations.js";
+import {EqualibriumRxn} from "/ApChemCalc/js/lib/equations.js";
 
 let reactEntered = false;
 let prodEntered = false;

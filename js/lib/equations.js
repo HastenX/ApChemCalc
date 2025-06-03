@@ -1,4 +1,4 @@
-import {SigFigs} from "/ApChemCalc/utils/lib/sigFigs.js";
+import {SigFigs} from "/ApChemCalc/js/lib/sigFigs.js";
 
 const gasConstant = Number(0.08206);
 const faradayConstant = Number(96,485);
@@ -335,10 +335,12 @@ export class pHCalc {
         let pOHSigFigs = new SigFigs(pH, pOH, molarity, molarityType);;
 
         if(this.pH != undefined) {
+            // TO DETERMINE MOLARITY SIGNFICANT FIGURES (ONLY COUNTS PAST DECCIMAL POINT of pH)
             for(let i=1; i<= String(this.pH).split(".")[0].length; i++) {
                 molarityFig.removeSigFig();
             }
 
+            // SIG FIGS OF pOH EQUALS THE LENNGTH OF THE CALCULATE pOH (BEFORE DECIMAL) CONCATED WITH THE LENGTH OF ENTERED pH (PAST DEMICAL) 
             pOHSigFigs.sigFigs = (String(14-this.pH).split(".")[0] +String(this.pH).split(".")[1]).length;
 
             molarityFig.applySigFigs(Number(10**(-Number(this.pH))));
@@ -374,6 +376,7 @@ export class pHCalc {
             return;
         }
         if(String(this.molarityType) == ("Strong Base")) {
+            // USED temp VARIABLES TO SIMPLIFY WRITING EQUATIONS (SEE BELOW)
             let temppH = Number(14-Number(-Math.log10(Number(this.molarity))));
             let temppOH = Number(Number(-Math.log10(Number(this.molarity))));
             for(let i=1; i<= String(temppOH).split(".")[0].length; i++) {
@@ -392,7 +395,7 @@ export class pHCalc {
             molarityFig.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
             this.molarityH = molarityFig.output;
 
-            molarityFig.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
+            molarityFig.applySigFigs(Number(this.molarity));
             this.molarityOH = molarityFig.output;
             return;
         }
@@ -415,7 +418,7 @@ export class pHCalc {
             molarityFig.applySigFigs(Number(10**(-Number(14-Number(Number(-Math.log10(Number(this.molarity))))))));
             this.molarityOH = molarityFig.output;
 
-            molarityFig.applySigFigs(Number(10**(-Number(Number(Number(-Math.log10(Number(this.molarity))))))));
+            molarityFig.applySigFigs(Number(this.molarity));
             this.molarityH = molarityFig.output;
             return;
         }

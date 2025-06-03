@@ -1,4 +1,4 @@
-import {pHCalc} from "/ApChemCalc/utils/lib/equations.js";
+import {pHCalc} from "/ApChemCalc/js/lib/equations.js";
 
 let visibleDiv;
 let phCalc;
